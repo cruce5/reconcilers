@@ -1,13 +1,12 @@
 // Build the Reconcilers site into dist/: the home page, the sample episode, the bundle zip, a
 // share card, and the static sidecars. Three gates fail the build rather than ship something
-// wrong: an em dash anywhere, an episode quote that is not word for word in its source report,
+// wrong: an em dash anywhere, a speech balloon that is not word for word in its source report,
 // and a page that points at an asset that is not there.
 import { readFileSync, writeFileSync, readdirSync, statSync, mkdirSync, rmSync, copyFileSync, existsSync } from "node:fs";
 import { join, relative, sep, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { deflateRawSync } from "node:zlib";
-import { marked } from "marked";
 import { Resvg } from "@resvg/resvg-js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -23,8 +22,9 @@ const inline = (s) => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
 const lf = (s) => s.replace(/\r\n/g, "\n");
 const write = (p, s) => { mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, lf(s)); };
 
-rmSync(DIST, { recursive: true, force: true });
+// empty dist/ rather than delete it: a running `wrangler dev` holds the folder itself open
 mkdirSync(DIST, { recursive: true });
+for (const n of readdirSync(DIST)) rmSync(join(DIST, n), { recursive: true, force: true });
 
 // ---------- static assets ----------
 function copyDir(from, to) {
@@ -32,6 +32,7 @@ function copyDir(from, to) {
   for (const n of readdirSync(from)) copyFileSync(join(from, n), join(to, n));
 }
 copyFileSync(join(SITE, "app.css"), join(DIST, "app.css"));
+copyFileSync(join(SITE, "episode.css"), join(DIST, "episode.css"));
 copyFileSync(join(SITE, "carousel.js"), join(DIST, "carousel.js"));
 copyDir(join(SITE, "portraits"), join(DIST, "portraits"));
 copyDir(join(SITE, "fonts"), join(DIST, "fonts"));
@@ -111,54 +112,42 @@ const carousel = readFileSync(join(SITE, "_carousel.html"), "utf8");
 const slideCount = (carousel.match(/class="rec-slide[" ]/g) || []).length;
 write(join(DIST, "index.html"), fill(readFileSync(join(SITE, "index.html"), "utf8").replace("{{CAROUSEL}}", carousel)));
 
-// ---------- the sample episode ----------
+// ---------- the sample episode, as a comic ----------
+// Two voices, kept apart on purpose. Speech balloons are the heroes' own words, and every one must
+// be word for word in the report it came from (the build fails otherwise). Yellow captions are the
+// narrator, in plain English. The raw reports are not rendered here; they live on GitHub.
 const ep = JSON.parse(readFileSync(join(EP_DIR, "episode.json"), "utf8"));
 const src = (f) => readFileSync(join(EP_DIR, f), "utf8").replace(/\r/g, "");
 const verify = (file, q) => { if (!src(file).includes(q)) fail(`episode quote not verbatim in ${file}: "${q.slice(0, 70)}"`); return q; };
-verify(ep.meld.file, ep.meld.opener);
-ep.meld.map.forEach((m) => verify(ep.meld.file, m));
-ep.heroes.forEach((h) => verify(`${h.slug}.md`, h.quote));
-ep.report.counts.forEach((c) => verify(ep.report.file, c.quote));
-verify(ep.doctor.file, ep.doctor.opener);
+let balloons = 0;
+const balloon = (file, b, who, cls = "") => { verify(file, b.q); balloons++;
+  return `<p class="balloon${cls}"><span class="sr-only">${esc(who)} says: </span>${esc((b.pre || "") + b.q + (b.post || ""))}</p>`; };
+ep.report.stats.forEach((c) => verify(ep.report.file, c.quote));
 ep.doctor.score.forEach((c) => verify(ep.doctor.file, c.quote));
 verify(ep.doctor.file, ep.doctor.catch);
-if (ep.beacon) {
-  verify(ep.beacon.file, ep.beacon.opener);
-  verify(ep.beacon.file, ep.beacon.gap);
-  verify(ep.beacon.file, ep.beacon.cry);
-  verify(ep.summon.file, ep.summon.quote);
-  ep.summon.crits.forEach((c) => verify(ep.summon.file, c));
-}
+verify(ep.beacon.file, ep.beacon.cry);
 
-// the criticals, straight from REPORT.md's own Critical section
-const rep = src(ep.report.file);
-const critBlock = rep.slice(rep.indexOf("## Critical"), rep.indexOf("\n## ", rep.indexOf("## Critical") + 5));
-const crits = [...critBlock.matchAll(/^\d+\.\s+\*\*(.+?)\*\*/gm)].map((m) => m[1]);
-if (crits.length < 5) fail(`only ${crits.length} criticals parsed from ${ep.report.file}`);
-
-// full reports, rendered; raw HTML inside a report is shown as text, never injected
-marked.use({ renderer: { html(t) { return esc(typeof t === "string" ? t : t.text); } } });
-const reports = [
-  { slug: "meld", name: "Meld · the map", file: "context.md" },
-  ...(ep.beacon ? [{ slug: "beacon", name: "Beacon · the cast (added later)", file: ep.beacon.file }, { slug: "summon-brief", name: `${ep.summon.name} · the brief Beacon wrote`, file: ep.summon.brief }] : []),
-  ...ep.heroes.map((h) => ({ slug: h.slug, name: h.name, file: `${h.slug}.md` })),
-  { slug: "report", name: "The compiled report", file: "REPORT.md" },
-  { slug: "missedit", name: "Doctor Missedit · the audit of the audit", file: "missedit.md" },
-  ...(ep.summon ? [{ slug: ep.summon.slug, name: `${ep.summon.name} · the summon's report (added later)`, file: ep.summon.file }] : []),
-];
-// The team forbids em dashes, and one report on this run used them anyway. The source files stay
-// unedited (they are the record, on GitHub); on the page each one shows as a spaced hyphen, and
-// the count is computed here and stated, not typed.
-const dashCounts = reports.map((r) => ({ name: r.name, n: (src(r.file).match(/—/g) || []).length })).filter((d) => d.n);
-const dashTotal = dashCounts.reduce((t, d) => t + d.n, 0);
-// an agent brief opens with YAML frontmatter; show it as a code block, not as a setext heading
-const frontmatter = (t) => t.replace(/^---\n([\s\S]*?)\n---\n/, "```yaml\n$1\n```\n");
-const undash = (t) => t.replace(/[ \t]*—[ \t]*/g, " - ");
-const reportHtml = reports.map((r) => `<details class="report"><summary>${esc(r.name)}<span class="sr-only"> (full report)</span></summary><div class="md" id="report-${r.slug}">${marked.parse(frontmatter(undash(src(r.file))))}</div></details>`).join("\n");
+// The team forbids em dashes, and one report on this run used them anyway. The count is computed
+// here from the unedited files and told as the last panel's joke, not typed.
+const reportFiles = ["context.md", ...ep.heroes.map((h) => `${h.slug}.md`), "REPORT.md", "missedit.md", ep.beacon.file, ep.summon.file];
 const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
-const dashNote = dashTotal
-  ? `<p class="narr">One more catch, made while building this page: ${esc(dashCounts.map((d) => `${d.name}’s report broke the team’s own no-em-dash rule ${WORDS[d.n] || d.n} time${d.n === 1 ? "" : "s"}`).join("; "))}, and neither the compiler nor the Doctor noticed. Redline had even filed the house rules as clean. Below, those dashes show as spaced hyphens; the originals are unedited <a href="{{GITHUB}}/tree/main/episodes/cape-index-2026-09-08" target="_blank" rel="noopener">on GitHub</a>.</p>`
+const NAMES = Object.fromEntries(ep.heroes.map((h) => [`${h.slug}.md`, h.name]));
+const dashes = reportFiles.map((f) => ({ who: NAMES[f] || f, n: (src(f).match(/—/g) || []).length })).filter((d) => d.n);
+const ps = dashes.length
+  ? `P.S. Nobody caught this one, the Doctor included: ${dashes.map((d) => `${d.who}&rsquo;s report broke the team&rsquo;s own no-em-dash rule ${WORDS[d.n] || d.n} time${d.n === 1 ? "" : "s"}`).join("; ")}.`
   : "";
+
+const img = (file, alt) => `<img src="/portraits/${esc(file)}" width="800" height="1000" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+const sfx = (t, cls = "") => `<span class="sfx${cls}" aria-hidden="true">${esc(t)}</span>`;
+const cap = (t, cls = "") => `<p class="cap${cls}">${esc(t)}</p>`;
+const heroPanel = (h) => `<figure class="panel hero">
+      ${cap(h.cry, " cry")}
+      <div class="art">${img(h.portrait, h.name)}${sfx(h.fx)}</div>
+      ${balloon(`${h.slug}.md`, h.balloon, h.name)}
+      <figcaption class="cap">${esc(h.caught)}</figcaption>
+    </figure>`;
+const stat = (c, cls = "") => `<div class="stat${cls}"><span class="burst" aria-hidden="true"></span><b>${esc(c.v)}</b><span>${esc(c.k)}</span></div>`;
+const cast = ["meld", "beacon", "ledger", "chartjunk", "thumb", "doctor_missedit"];
 
 const episode = `<!doctype html>
 <html lang="en">
@@ -167,83 +156,112 @@ const episode = `<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
 <title>${esc(ep.title)} · The Reconcilers</title>
-<meta name="description" content="A real Reconcilers episode against ${esc(ep.product)}: every hero's report, the compiled findings, and Doctor Missedit's verdicts.">
+<meta name="description" content="A real Reconcilers episode, told as a comic: nine heroes audit ${esc(ep.product)}, then Doctor Missedit audits them.">
 <link rel="canonical" href="{{ORIGIN}}/episode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="${esc(ep.title)} · a Reconcilers episode">
+<meta property="og:title" content="${esc(ep.title)} · a Reconcilers comic">
 <meta property="og:description" content="Eight heroes audited ${esc(ep.product)} in parallel. Then the villain audited them.">
 <meta property="og:url" content="{{ORIGIN}}/episode">
 <meta property="og:image" content="{{ORIGIN}}/{{OG}}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%87%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="/fonts/plex-cond-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/app.css">
+<link rel="stylesheet" href="/episode.css">
 </head>
-<body>
-<header class="mast">
-  <div class="wrap">
-    <a class="back" href="/">&larr; The Reconcilers</a>
-    <p class="eyebrow">Sample episode &nbsp;&middot;&nbsp; ${esc(ep.date)}</p>
-    <h1>${esc(ep.title)}</h1>
-    <div class="rule" aria-hidden="true"></div>
-    <p class="honest">${esc(ep.note)}</p>
+<body class="comic-body">
+<main class="wrap comic">
+  <a class="back" href="/">&larr; The Reconcilers</a>
+
+  <header class="panel cover">
+    <div class="cover-top"><span class="issue">${esc(ep.issue)}</span><span class="brand">The Reconcilers</span><span class="price">${esc(ep.date)}</span></div>
+    <h1 class="cover-title">${esc(ep.title)}</h1>
+    <div class="cover-cast" aria-hidden="true">${cast.map((c) => `<img src="/portraits/${c}.jpg" width="800" height="1000" alt="" decoding="async">`).join("")}</div>
+    <p class="cover-tag">Nine heroes. One box office site. And a villain who audits the auditors!</p>
+  </header>
+  <p class="indicia">${esc(ep.indicia)}</p>
+
+  <section class="page" aria-label="The call">
+    <div class="panel narration">${cap(ep.opening, " big")}</div>
+    <figure class="panel hero wide">
+      <div class="art">${img("meld.jpg", "Meld")}${sfx(ep.meld.fx)}</div>
+      <div class="words">
+        ${cap("MELD, to the map!", " cry")}
+        ${balloon(ep.meld.file, ep.meld.balloon, "Meld")}
+        <figcaption class="cap">${esc(ep.meld.caption)}</figcaption>
+      </div>
+    </figure>
+  </section>
+
+  <section class="page" aria-label="The eight">
+    <div class="panel narration">${cap("Meanwhile, in the Hall of Reconciliation...", " big")}${cap(ep.hall)}</div>
+    <div class="grid">
+    ${ep.heroes.map(heroPanel).join("\n    ")}
+    </div>
+  </section>
+
+  <section class="page" aria-label="The report">
+    <div class="panel splash">
+      <h2 class="splash-title">${esc(ep.report.splash)}</h2>
+      <div class="stats">${ep.report.stats.map((c) => stat(c)).join("")}</div>
+      ${cap(ep.report.caption)}
+    </div>
+  </section>
+
+  <section class="page villain" aria-label="Hold it">
+    <div class="panel narration">${cap(ep.doctor.before, " big")}</div>
+    <div class="panel splash hold"><h2 class="splash-title">Hold it!</h2></div>
+    <figure class="panel hero wide">
+      <div class="art">${img("doctor_missedit.jpg", "Doctor Missedit")}${sfx("MWAH-HA!", " red")}</div>
+      <div class="words">
+        ${cap("Doctor Missedit, uninvited", " cry")}
+        ${ep.doctor.balloons.map((b) => balloon(ep.doctor.file, b, "Doctor Missedit", " villain")).join("\n        ")}
+        <figcaption class="cap">${esc(ep.doctor.caption)}</figcaption>
+      </div>
+    </figure>
+    <div class="panel splash">
+      <div class="stats">${ep.doctor.score.map((c) => stat(c, " red")).join("")}</div>
+      ${cap(ep.doctor.catchCaption)}
+    </div>
+  </section>
+
+  <section class="page later" aria-label="Later">
+    <div class="panel narration">${cap("Later...", " big")}<p class="stamp">Added ${esc(ep.later.added)}</p>${cap(ep.later.caption)}</div>
+    <figure class="panel hero wide">
+      <div class="art">${img("beacon.jpg", "Beacon")}${sfx(ep.beacon.fx, " violet")}</div>
+      <div class="words">
+        ${cap("BEACON, across the multiverse!", " cry")}
+        ${balloon(ep.beacon.file, ep.beacon.balloon, "Beacon")}
+        <figcaption class="cap">${esc(ep.beacon.caption)}</figcaption>
+      </div>
+    </figure>
+    <figure class="panel hero wide">
+      <div class="art summoned"><span class="silhouette" aria-hidden="true">?</span><span class="noportrait">${esc(ep.summon.noPortrait)}</span>${sfx(ep.summon.fx, " violet")}</div>
+      <div class="words">
+        ${cap(ep.beacon.cry, " cry")}
+        ${balloon(ep.summon.file, ep.summon.balloon, ep.summon.name)}
+        <figcaption class="cap">${esc(ep.summon.caught)}</figcaption>
+        ${cap(ep.summon.fixed, " fixed")}
+      </div>
+    </figure>
+  </section>
+
+  <section class="page end" aria-label="The end">
+    <div class="panel splash theend">
+      <h2 class="splash-title">The end?</h2>
+      ${cap(ep.credits)}
+      <p class="batline">Same Bat-time. Same Bat-channel.</p>
+    </div>
+    ${ps ? `<div class="panel narration">${`<p class="cap ps">${ps}</p>`}</div>` : ""}
+  </section>
+
+  <div class="cta-row endcta">
+    <a class="btn primary" href="/reconcilers.zip" download>&darr; Get the team <span class="sub">zip &middot; ${zipKB} KB</span></a>
+    <a class="btn" href="/#install">How to run it</a>
+    <a class="btn" href="{{GITHUB}}/tree/main/episodes/cape-index-2026-09-08" target="_blank" rel="noopener">The heroes&rsquo; raw reports</a>
   </div>
-</header>
-<main class="wrap">
-  <div class="titlecard"><div class="bat">🦇 THE RECONCILERS</div><div class="ep">Episode: &ldquo;${esc(ep.title)}&rdquo;</div></div>
-
-  <section class="act" aria-labelledby="a1"><h2 id="a1">Act 1 &nbsp;&middot;&nbsp; Meld reads the room</h2>
-    <p class="narr">Every episode starts with the one hero who reads the map before the others run in.</p>
-    <div class="landing"><img src="/portraits/meld.jpg" alt="" loading="lazy"><div><span class="fx">POW!</span><span class="who">Meld</span><blockquote>&ldquo;${inline(ep.meld.opener)}&rdquo;</blockquote></div></div>
-    <ul class="map">${ep.meld.map.map((m) => `<li>${inline(m)}</li>`).join("")}</ul>
-${ep.beacon ? `    <div class="added"><span class="stamp">Added ${esc(ep.beacon.added)}</span> Beacon joined the team after this run, so we handed it this same map and let it cast.</div>
-    <p class="narr">Then, Beacon reaches across the multiverse...</p>
-    <div class="landing"><img src="/portraits/beacon.jpg" alt="" loading="lazy"><div><span class="fx">ZAAP!</span><span class="who">Beacon</span><blockquote>&ldquo;${inline(ep.beacon.opener)}&rdquo;</blockquote><div class="more"><a href="#report-beacon">Read Beacon&rsquo;s cast</a></div></div></div>
-    <p class="narr">The gap, in Beacon&rsquo;s words: &ldquo;${inline(ep.beacon.gap)}&rdquo;</p>
-    <p class="narr">The summon: <b>${esc(ep.summon.name.toUpperCase())}</b>, ${esc(ep.summon.lane)}, on ${esc(ep.summon.model)}. It runs after the credits.</p>` : ""}
-  </section>
-
-  <section class="act" aria-labelledby="a2"><h2 id="a2">Act 2 &nbsp;&middot;&nbsp; The eight, in parallel</h2>
-    <p class="narr">Meanwhile, in the Hall of Reconciliation...</p>
-    <ul class="cries">${ep.heroes.map((h) => `<li>${esc(h.cry)}</li>`).join("")}</ul>
-    <ol class="landings">${ep.heroes.map((h) => `<li class="landing"><img src="/portraits/${esc(h.portrait)}" alt="" loading="lazy"><div><span class="fx">${esc(h.fx)}</span><span class="who">${esc(h.name)}</span><blockquote>&ldquo;${inline(h.quote)}&rdquo;</blockquote><div class="more"><a href="#report-${esc(h.slug)}">Read ${esc(h.name)}&rsquo;s full report</a></div></div></li>`).join("")}</ol>
-  </section>
-
-  <section class="act" aria-labelledby="a3"><h2 id="a3">Act 3 &nbsp;&middot;&nbsp; The compiled report</h2>
-    <p class="narr">Deduplicated, ranked, and the top ten checked in source by the compiler before ranking.</p>
-    <div class="counts">${ep.report.counts.map((c) => `<div><div class="k">${esc(c.k)}</div><div class="v">${esc(c.v)}</div></div>`).join("")}</div>
-    <p class="narr">The criticals, as filed:</p>
-    <ol class="crits">${crits.map((c) => `<li><b>${inline(c)}</b></li>`).join("")}</ol>
-  </section>
-
-  <section class="act" aria-labelledby="a4"><h2 id="a4" class="sr-only">Act 4 · Hold it</h2>
-    <div class="hold" aria-hidden="true">HOLD IT!</div>
-    <p class="narr">But what&rsquo;s this? A shadow falls across the Hall...</p>
-    <div class="landing"><img src="/portraits/doctor_missedit.jpg" alt="" loading="lazy"><div><span class="fx">DOCTOR MISSEDIT</span><blockquote class="villain-line">&ldquo;${inline(ep.doctor.opener)}&rdquo;</blockquote></div></div>
-    <div class="counts">${ep.doctor.score.map((c) => `<div><div class="k">${esc(c.k)}</div><div class="v">${esc(c.v)}</div></div>`).join("")}<div><div class="k">Compiler errors</div><div class="v">1</div></div></div>
-    <p class="narr">${esc(ep.doctor.catchNote)} In his words: &ldquo;${inline(ep.doctor.catch)}&rdquo;</p>
-  </section>
-
-  <section class="act" aria-labelledby="a5"><h2 id="a5">Act 5 &nbsp;&middot;&nbsp; Roll credits</h2>
-    <p class="narr">${esc(ep.credits)} <a href="${esc(ep.productUrl)}" target="_blank" rel="noopener">Visit ${esc(ep.product)} &rarr;</a></p>
-    <p class="credits">Same Bat-time. Same Bat-channel.</p>
-  </section>
-
-${ep.summon ? `  <section class="act postcredits" aria-labelledby="a6"><h2 id="a6">After the credits &nbsp;&middot;&nbsp; The summon</h2>
-    <div class="added"><span class="stamp">Added ${esc(ep.beacon.added)}</span> ${esc(ep.summon.note)}</div>
-    <ul class="cries"><li>${inline(ep.beacon.cry)}</li></ul>
-    <div class="landing"><div class="initial" aria-hidden="true">${esc(ep.summon.name[0])}</div><div><span class="fx">${esc(ep.summon.fx)}</span><span class="who">${esc(ep.summon.name)}</span><blockquote>&ldquo;${inline(ep.summon.quote)}&rdquo;</blockquote><div class="more"><a href="#report-${esc(ep.summon.slug)}">Read ${esc(ep.summon.name)}&rsquo;s full report</a></div></div></div>
-    <p class="narr">${esc(ep.summon.critIntro)}</p>
-    <ol class="crits">${ep.summon.crits.map((c) => `<li><b>${inline(c)}</b></li>`).join("")}</ol>
-  </section>
-
-` : ""}  <section class="act" aria-labelledby="full"><h2 id="full">The full reports</h2>
-    <p class="narr">Unedited, as the heroes wrote them.</p>
-    ${dashNote}
-    ${reportHtml}
-  </section>
-  <p class="cta-row"><a class="btn primary" href="/reconcilers.zip" download>&darr; Get the team <span class="sub">zip &middot; ${zipKB} KB</span></a><a class="btn" href="/">&larr; Back to the roster</a></p>
 </main>
-<footer class="foot"><div class="wrap">Built by <a href="https://www.linkedin.com/in/billyost/" target="_blank" rel="noopener">🏴&zwj;☠️ Bill Yost</a>. Source and issues on <a href="{{GITHUB}}" target="_blank" rel="noopener">GitHub</a>.</div></footer>
+<footer class="foot"><div class="wrap">Built by <a href="https://www.linkedin.com/in/billyost/" target="_blank" rel="noopener">🏴&zwj;☠️ Bill Yost</a>. First run on <a href="${esc(ep.productUrl)}" target="_blank" rel="noopener">${esc(ep.product)}</a>. Source and issues on <a href="{{GITHUB}}" target="_blank" rel="noopener">GitHub</a>.</div></footer>
 </body>
 </html>
 `;
@@ -275,7 +293,7 @@ write(join(DIST, "sitemap.xml"), [
 write(join(DIST, "404.html"), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark light"><title>Not found · The Reconcilers</title><link rel="stylesheet" href="/app.css"></head><body><header class="mast"><div class="wrap"><p class="eyebrow">404</p><h1>Missedit.</h1><div class="rule" aria-hidden="true"></div><p class="dek">Nothing lives at this address. The Doctor would like it noted that this was not his doing.</p><div class="cta-row"><a class="btn primary" href="/">&larr; Back to the roster</a></div></div></header></body></html>\n`);
 
 // ---------- gates ----------
-for (const f of ["index.html", "episode.html", "404.html", "app.css", "carousel.js"]) {
+for (const f of ["index.html", "episode.html", "404.html", "app.css", "episode.css", "carousel.js"]) {
   const t = readFileSync(join(DIST, f), "utf8");
   if (t.includes("—")) fail(`em dash in dist/${f}`);
   for (const m of t.matchAll(/(?:src|href)="(\/[^"#?]+)"/g)) {
@@ -288,4 +306,4 @@ if (slideCount !== 11) fail(`carousel has ${slideCount} slides, expected 11`);
 if (agentCount !== 11) fail(`bundle has ${agentCount} agent briefs, expected 11`);
 
 if (fails.length) { console.error("\nBUILD FAILED:\n  " + fails.join("\n  ")); process.exit(1); }
-console.log(`dist/ built · index + episode · ${slideCount} slides · reconcilers.zip ${zipFiles.length} files, ${zipKB} KB (${agentCount} agents) · ${og} · ${crits.length} criticals · every episode quote verbatim`);
+console.log(`dist/ built · index + episode · ${slideCount} slides · reconcilers.zip ${zipFiles.length} files, ${zipKB} KB (${agentCount} agents) · ${og} · episode ${balloons} balloons, every one verbatim`);
