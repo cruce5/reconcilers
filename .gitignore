@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.wrangler/
+.DS_Store
+*.log
+# an audit run against this repo writes here; commit an episode on purpose, under episodes/
+.reconcilers/

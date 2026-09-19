@@ -1,0 +1,15 @@
+{
+  "name": "reconcilers-site",
+  "private": true,
+  "type": "module",
+  "description": "The Reconcilers: an audit team for data products. The bundle, and the site that hands it out.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "deploy": "node scripts/build.mjs && wrangler deploy"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "marked": "^18.0.13",
+    "wrangler": "^4.135.0"
+  }
+}
