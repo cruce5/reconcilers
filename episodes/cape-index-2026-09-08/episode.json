@@ -3,7 +3,7 @@
   "product": "The Cape Index",
   "productUrl": "https://capeindex.com",
   "date": "8 September 2026",
-  "note": "This is the first full episode of the packaged skill, run against capeindex.com with every hero on Opus 4.7. Beacon had not joined the team yet, so there is no summon. Everything quoted below is copied from the reports the heroes wrote, which are in full at the bottom of the page.",
+  "note": "This is the first full episode of the packaged skill, run against capeindex.com with every hero on Opus 4.7. Beacon joined the team afterwards; on 19 September it was handed the same map, and its summon audited the site as it stood that day. Those beats are stamped. Everything quoted below is copied from the reports the heroes wrote, which are in full at the bottom of the page.",
   "meld": {
     "file": "context.md",
     "opener": "Meld here. Lights on. Every hero read this before they walk in.",
@@ -14,34 +14,142 @@
     ]
   },
   "heroes": [
-    { "slug": "ledger", "name": "Ledger", "cry": "LEDGER, to the numbers!", "fx": "BIFF!", "portrait": "ledger.jpg", "quote": "the arithmetic is clean, the scrape ties out to the dollar, and there is exactly one place a live filter has drifted from the rule the page publishes for it." },
-    { "slug": "doppel", "name": "Doppel", "cry": "DOPPEL, to the join keys!", "fx": "ZLONK!", "portrait": "doppel.jpg", "quote": "Two records for the same soul, one row for two souls. Both hurt the count. Both are here." },
-    { "slug": "median", "name": "Median", "cry": "MEDIAN, to the denominators!", "fx": "KAPOW!", "portrait": "median.jpg", "quote": "Meld left a map with n on every road. Read that first. The five that follow are what the data does not yet forgive." },
-    { "slug": "chartjunk", "name": "Chartjunk", "cry": "CHARTJUNK, to the axes!", "fx": "SOCK!", "portrait": "chartjunk.jpg", "quote": "I found one live encoding lie that has been shipping under a chart whose whole job is to teach lying, plus a handful of small honesty compromises worth naming." },
-    { "slug": "thumb", "name": "Thumb", "cry": "THUMB, to the phone!", "fx": "WHAMM!", "portrait": "thumb.jpg", "quote": "Opened this on a train once. Shrank shortly after." },
-    { "slug": "greyscale", "name": "Greyscale", "cry": "GREYSCALE, lights off!", "fx": "THWACKE!", "portrait": "greyscale.jpg", "quote": "I ran the page in monochrome and by keyboard. Most of the backstops hold." },
-    { "slug": "redline", "name": "Redline", "cry": "REDLINE, to the headlines!", "fx": "SPLATT!", "portrait": "redline.jpg", "quote": "The Red Pen is out." },
-    { "slug": "payload", "name": "Payload", "cry": "PAYLOAD, to the network tab!", "fx": "POW!", "portrait": "payload.jpg", "quote": "I came in ready to bill the network tab and left with a spare bug bar. Most of what I would flag on a normal site is not here to flag." }
+    {
+      "slug": "ledger",
+      "name": "Ledger",
+      "cry": "LEDGER, to the numbers!",
+      "fx": "BIFF!",
+      "portrait": "ledger.jpg",
+      "quote": "the arithmetic is clean, the scrape ties out to the dollar, and there is exactly one place a live filter has drifted from the rule the page publishes for it."
+    },
+    {
+      "slug": "doppel",
+      "name": "Doppel",
+      "cry": "DOPPEL, to the join keys!",
+      "fx": "ZLONK!",
+      "portrait": "doppel.jpg",
+      "quote": "Two records for the same soul, one row for two souls. Both hurt the count. Both are here."
+    },
+    {
+      "slug": "median",
+      "name": "Median",
+      "cry": "MEDIAN, to the denominators!",
+      "fx": "KAPOW!",
+      "portrait": "median.jpg",
+      "quote": "Meld left a map with n on every road. Read that first. The five that follow are what the data does not yet forgive."
+    },
+    {
+      "slug": "chartjunk",
+      "name": "Chartjunk",
+      "cry": "CHARTJUNK, to the axes!",
+      "fx": "SOCK!",
+      "portrait": "chartjunk.jpg",
+      "quote": "I found one live encoding lie that has been shipping under a chart whose whole job is to teach lying, plus a handful of small honesty compromises worth naming."
+    },
+    {
+      "slug": "thumb",
+      "name": "Thumb",
+      "cry": "THUMB, to the phone!",
+      "fx": "WHAMM!",
+      "portrait": "thumb.jpg",
+      "quote": "Opened this on a train once. Shrank shortly after."
+    },
+    {
+      "slug": "greyscale",
+      "name": "Greyscale",
+      "cry": "GREYSCALE, lights off!",
+      "fx": "THWACKE!",
+      "portrait": "greyscale.jpg",
+      "quote": "I ran the page in monochrome and by keyboard. Most of the backstops hold."
+    },
+    {
+      "slug": "redline",
+      "name": "Redline",
+      "cry": "REDLINE, to the headlines!",
+      "fx": "SPLATT!",
+      "portrait": "redline.jpg",
+      "quote": "The Red Pen is out."
+    },
+    {
+      "slug": "payload",
+      "name": "Payload",
+      "cry": "PAYLOAD, to the network tab!",
+      "fx": "POW!",
+      "portrait": "payload.jpg",
+      "quote": "I came in ready to bill the network tab and left with a spare bug bar. Most of what I would flag on a normal site is not here to flag."
+    }
   ],
   "report": {
     "file": "REPORT.md",
     "counts": [
-      { "k": "Raw findings", "v": "65", "quote": "Raw findings across eight reports: **65**" },
-      { "k": "Deduplicated", "v": "55", "quote": "Deduplicated: **55**" },
-      { "k": "Critical", "v": "8", "quote": "Critical: **8**" },
-      { "k": "Verified by the compiler", "v": "8 of 10", "quote": "**8 of the top ten**" }
+      {
+        "k": "Raw findings",
+        "v": "65",
+        "quote": "Raw findings across eight reports: **65**"
+      },
+      {
+        "k": "Deduplicated",
+        "v": "55",
+        "quote": "Deduplicated: **55**"
+      },
+      {
+        "k": "Critical",
+        "v": "8",
+        "quote": "Critical: **8**"
+      },
+      {
+        "k": "Verified by the compiler",
+        "v": "8 of 10",
+        "quote": "**8 of the top ten**"
+      }
     ]
   },
   "doctor": {
     "file": "missedit.md",
     "opener": "Eight capes filed reports. I read them with the tell in one hand and the evidence in the other. Most stood. A few did not.",
     "score": [
-      { "k": "Stands", "v": "46", "quote": "**Stands: 46**" },
-      { "k": "Downgraded", "v": "6", "quote": "**Downgraded: 6**" },
-      { "k": "Artifact", "v": "3", "quote": "**Artifact: 3**" }
+      {
+        "k": "Stands",
+        "v": "46",
+        "quote": "**Stands: 46**"
+      },
+      {
+        "k": "Downgraded",
+        "v": "6",
+        "quote": "**Downgraded: 6**"
+      },
+      {
+        "k": "Artifact",
+        "v": "3",
+        "quote": "**Artifact: 3**"
+      }
     ],
     "catch": "REPORT.md's own totals do not reconcile to its own list.",
     "catchNote": "He audited the compiler too. The report said 55 findings; its own list held 54."
   },
-  "credits": "Every finding was fixed the same day. The full story is in the build log on The Cape Index."
+  "credits": "Every finding was fixed the same day. The full story is in the build log on The Cape Index.",
+  "beacon": {
+    "file": "beacon.md",
+    "added": "19 September",
+    "opener": "A signal flares at the edge of the map, over a box office where nobody has asked whether the numbers were counted the same way.",
+    "gap": "The Cape Index compares 91 films' grosses, openings and budgets as if each was measured the same way, and none of the eight lanes checks that against box-office trade conventions.",
+    "cry": "TURNSTILE, to the release groups!"
+  },
+  "summon": {
+    "slug": "turnstile",
+    "name": "Turnstile",
+    "file": "turnstile.md",
+    "brief": "summons/turnstile.md",
+    "lane": "box-office conventions",
+    "model": "Opus",
+    "fx": "KER-CHUNK!",
+    "note": "Turnstile audited the site as it stood on 19 September. Its findings were not in the compiled report above, and Doctor Missedit has not audited them.",
+    "quote": "Ten years of Monday mornings taught me one question, and I asked it of every number here: was it measured the same way as the number it sits beside?",
+    "critIntro": "No criticals. The three majors, as filed:",
+    "crits": [
+      "§07 ranks mid-week openers on a different window, and they hold four of its top six places",
+      "§06's widest miss compares a filed actual cost with press-release budgets",
+      "§06 ranks day-and-date streaming releases against theatrical-only runs without a note"
+    ]
+  }
 }

@@ -122,6 +122,13 @@ ep.report.counts.forEach((c) => verify(ep.report.file, c.quote));
 verify(ep.doctor.file, ep.doctor.opener);
 ep.doctor.score.forEach((c) => verify(ep.doctor.file, c.quote));
 verify(ep.doctor.file, ep.doctor.catch);
+if (ep.beacon) {
+  verify(ep.beacon.file, ep.beacon.opener);
+  verify(ep.beacon.file, ep.beacon.gap);
+  verify(ep.beacon.file, ep.beacon.cry);
+  verify(ep.summon.file, ep.summon.quote);
+  ep.summon.crits.forEach((c) => verify(ep.summon.file, c));
+}
 
 // the criticals, straight from REPORT.md's own Critical section
 const rep = src(ep.report.file);
@@ -133,17 +140,21 @@ if (crits.length < 5) fail(`only ${crits.length} criticals parsed from ${ep.repo
 marked.use({ renderer: { html(t) { return esc(typeof t === "string" ? t : t.text); } } });
 const reports = [
   { slug: "meld", name: "Meld · the map", file: "context.md" },
+  ...(ep.beacon ? [{ slug: "beacon", name: "Beacon · the cast (added later)", file: ep.beacon.file }, { slug: "summon-brief", name: `${ep.summon.name} · the brief Beacon wrote`, file: ep.summon.brief }] : []),
   ...ep.heroes.map((h) => ({ slug: h.slug, name: h.name, file: `${h.slug}.md` })),
   { slug: "report", name: "The compiled report", file: "REPORT.md" },
   { slug: "missedit", name: "Doctor Missedit · the audit of the audit", file: "missedit.md" },
+  ...(ep.summon ? [{ slug: ep.summon.slug, name: `${ep.summon.name} · the summon's report (added later)`, file: ep.summon.file }] : []),
 ];
 // The team forbids em dashes, and one report on this run used them anyway. The source files stay
 // unedited (they are the record, on GitHub); on the page each one shows as a spaced hyphen, and
 // the count is computed here and stated, not typed.
 const dashCounts = reports.map((r) => ({ name: r.name, n: (src(r.file).match(/—/g) || []).length })).filter((d) => d.n);
 const dashTotal = dashCounts.reduce((t, d) => t + d.n, 0);
+// an agent brief opens with YAML frontmatter; show it as a code block, not as a setext heading
+const frontmatter = (t) => t.replace(/^---\n([\s\S]*?)\n---\n/, "```yaml\n$1\n```\n");
 const undash = (t) => t.replace(/[ \t]*—[ \t]*/g, " - ");
-const reportHtml = reports.map((r) => `<details class="report"><summary>${esc(r.name)}<span class="sr-only"> (full report)</span></summary><div class="md" id="report-${r.slug}">${marked.parse(undash(src(r.file)))}</div></details>`).join("\n");
+const reportHtml = reports.map((r) => `<details class="report"><summary>${esc(r.name)}<span class="sr-only"> (full report)</span></summary><div class="md" id="report-${r.slug}">${marked.parse(frontmatter(undash(src(r.file))))}</div></details>`).join("\n");
 const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
 const dashNote = dashTotal
   ? `<p class="narr">One more catch, made while building this page: ${esc(dashCounts.map((d) => `${d.name}’s report broke the team’s own no-em-dash rule ${WORDS[d.n] || d.n} time${d.n === 1 ? "" : "s"}`).join("; "))}, and neither the compiler nor the Doctor noticed. Redline had even filed the house rules as clean. Below, those dashes show as spaced hyphens; the originals are unedited <a href="{{GITHUB}}/tree/main/episodes/cape-index-2026-09-08" target="_blank" rel="noopener">on GitHub</a>.</p>`
@@ -184,6 +195,11 @@ const episode = `<!doctype html>
     <p class="narr">Every episode starts with the one hero who reads the map before the others run in.</p>
     <div class="landing"><img src="/portraits/meld.jpg" alt="" loading="lazy"><div><span class="fx">POW!</span><span class="who">Meld</span><blockquote>&ldquo;${inline(ep.meld.opener)}&rdquo;</blockquote></div></div>
     <ul class="map">${ep.meld.map.map((m) => `<li>${inline(m)}</li>`).join("")}</ul>
+${ep.beacon ? `    <div class="added"><span class="stamp">Added ${esc(ep.beacon.added)}</span> Beacon joined the team after this run, so we handed it this same map and let it cast.</div>
+    <p class="narr">Then, Beacon reaches across the multiverse...</p>
+    <div class="landing"><img src="/portraits/beacon.jpg" alt="" loading="lazy"><div><span class="fx">ZAAP!</span><span class="who">Beacon</span><blockquote>&ldquo;${inline(ep.beacon.opener)}&rdquo;</blockquote><div class="more"><a href="#report-beacon">Read Beacon&rsquo;s cast</a></div></div></div>
+    <p class="narr">The gap, in Beacon&rsquo;s words: &ldquo;${inline(ep.beacon.gap)}&rdquo;</p>
+    <p class="narr">The summon: <b>${esc(ep.summon.name.toUpperCase())}</b>, ${esc(ep.summon.lane)}, on ${esc(ep.summon.model)}. It runs after the credits.</p>` : ""}
   </section>
 
   <section class="act" aria-labelledby="a2"><h2 id="a2">Act 2 &nbsp;&middot;&nbsp; The eight, in parallel</h2>
@@ -212,7 +228,15 @@ const episode = `<!doctype html>
     <p class="credits">Same Bat-time. Same Bat-channel.</p>
   </section>
 
-  <section class="act" aria-labelledby="full"><h2 id="full">The full reports</h2>
+${ep.summon ? `  <section class="act postcredits" aria-labelledby="a6"><h2 id="a6">After the credits &nbsp;&middot;&nbsp; The summon</h2>
+    <div class="added"><span class="stamp">Added ${esc(ep.beacon.added)}</span> ${esc(ep.summon.note)}</div>
+    <ul class="cries"><li>${inline(ep.beacon.cry)}</li></ul>
+    <div class="landing"><div class="initial" aria-hidden="true">${esc(ep.summon.name[0])}</div><div><span class="fx">${esc(ep.summon.fx)}</span><span class="who">${esc(ep.summon.name)}</span><blockquote>&ldquo;${inline(ep.summon.quote)}&rdquo;</blockquote><div class="more"><a href="#report-${esc(ep.summon.slug)}">Read ${esc(ep.summon.name)}&rsquo;s full report</a></div></div></div>
+    <p class="narr">${esc(ep.summon.critIntro)}</p>
+    <ol class="crits">${ep.summon.crits.map((c) => `<li><b>${inline(c)}</b></li>`).join("")}</ol>
+  </section>
+
+` : ""}  <section class="act" aria-labelledby="full"><h2 id="full">The full reports</h2>
     <p class="narr">Unedited, as the heroes wrote them.</p>
     ${dashNote}
     ${reportHtml}

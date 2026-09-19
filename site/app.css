@@ -196,3 +196,9 @@ details.report[open] > summary::after { content: "\2212"; }
 }
 
 .back + .eyebrow { margin-top: 16px; }
+
+/* episode: beats added after the original run are stamped, never blended in */
+.added { margin: 22px 0 6px; padding: 10px 14px; border: 1px dashed color-mix(in srgb, var(--accent) 55%, transparent); border-radius: 10px; font-size: 14px; color: var(--ink-2); }
+.added .stamp { display: inline-block; margin-right: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.landing .initial { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 10px; background: color-mix(in srgb, var(--accent) 22%, var(--surface-2)); border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent); font-family: var(--font-display); font-weight: 700; font-size: 32px; color: var(--accent); }
+@media (max-width: 760px) { .landing .initial { width: 48px; height: 48px; font-size: 24px; } }
