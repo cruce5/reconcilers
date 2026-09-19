@@ -177,7 +177,7 @@ const episode = `<!doctype html>
     <div class="cover-top"><span class="issue">${esc(ep.issue)}</span><span class="brand">The Reconcilers</span><span class="price">${esc(ep.date)}</span></div>
     <h1 class="cover-title">${esc(ep.title)}</h1>
     <div class="cover-cast" aria-hidden="true">${cast.map((c) => `<img src="/portraits/${c}.jpg" width="800" height="1000" alt="" decoding="async">`).join("")}</div>
-    <p class="cover-tag">Nine heroes. One box office site. And a villain who audits the auditors!</p>
+    <p class="cover-tag">Eleven heroes. One box office site. And a villain who audits the auditors!</p>
   </header>
   <p class="indicia">${esc(ep.indicia)}</p>
 
@@ -191,13 +191,29 @@ const episode = `<!doctype html>
         <figcaption class="cap">${esc(ep.meld.caption)}</figcaption>
       </div>
     </figure>
+    <figure class="panel hero wide">
+      <div class="art">${img("beacon.jpg", "Beacon")}${sfx(ep.beacon.fx, " violet")}</div>
+      <div class="words">
+        ${cap("BEACON, across the multiverse!", " cry")}
+        ${balloon(ep.beacon.file, ep.beacon.balloon, "Beacon")}
+        <figcaption class="cap">${esc(ep.beacon.caption)}</figcaption>
+      </div>
+    </figure>
   </section>
 
-  <section class="page" aria-label="The eight">
+  <section class="page" aria-label="The team">
     <div class="panel narration">${cap("Meanwhile, in the Hall of Reconciliation...", " big")}${cap(ep.hall)}</div>
     <div class="grid">
     ${ep.heroes.map(heroPanel).join("\n    ")}
     </div>
+    <figure class="panel hero wide">
+      <div class="art summoned"><span class="silhouette" aria-hidden="true">?</span><span class="noportrait">${esc(ep.summon.noPortrait)}</span>${sfx(ep.summon.fx, " violet")}</div>
+      <div class="words">
+        ${cap(ep.beacon.cry, " cry")}
+        ${balloon(ep.summon.file, ep.summon.balloon, ep.summon.name)}
+        <figcaption class="cap">${esc(ep.summon.caught)}</figcaption>
+      </div>
+    </figure>
   </section>
 
   <section class="page" aria-label="The report">
@@ -223,27 +239,6 @@ const episode = `<!doctype html>
       <div class="stats">${ep.doctor.score.map((c) => stat(c, " red")).join("")}</div>
       ${cap(ep.doctor.catchCaption)}
     </div>
-  </section>
-
-  <section class="page later" aria-label="Later">
-    <div class="panel narration">${cap("Later...", " big")}<p class="stamp">Added ${esc(ep.later.added)}</p>${cap(ep.later.caption)}</div>
-    <figure class="panel hero wide">
-      <div class="art">${img("beacon.jpg", "Beacon")}${sfx(ep.beacon.fx, " violet")}</div>
-      <div class="words">
-        ${cap("BEACON, across the multiverse!", " cry")}
-        ${balloon(ep.beacon.file, ep.beacon.balloon, "Beacon")}
-        <figcaption class="cap">${esc(ep.beacon.caption)}</figcaption>
-      </div>
-    </figure>
-    <figure class="panel hero wide">
-      <div class="art summoned"><span class="silhouette" aria-hidden="true">?</span><span class="noportrait">${esc(ep.summon.noPortrait)}</span>${sfx(ep.summon.fx, " violet")}</div>
-      <div class="words">
-        ${cap(ep.beacon.cry, " cry")}
-        ${balloon(ep.summon.file, ep.summon.balloon, ep.summon.name)}
-        <figcaption class="cap">${esc(ep.summon.caught)}</figcaption>
-        ${cap(ep.summon.fixed, " fixed")}
-      </div>
-    </figure>
   </section>
 
   <section class="page end" aria-label="The end">

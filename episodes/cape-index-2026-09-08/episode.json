@@ -4,48 +4,130 @@
   "product": "The Cape Index",
   "productUrl": "https://capeindex.com",
   "date": "8 September 2026",
-  "indicia": "This is a real run. The team audited capeindex.com on 8 September 2026, every hero on Claude Opus 4.7. Beacon joined the team later, so the pages marked LATER were added on 19 September. Every speech balloon is a real line from a hero's report; the yellow captions are the narrator.",
+  "indicia": "Every speech balloon is a real line from a hero's report on capeindex.com; the yellow captions are the narrator.",
   "opening": "Somewhere online, a report on every Marvel and DC superhero film since 2000 is about to go live. Ninety-one films. Billions of dollars. Before anyone else sees it, its builder calls in the team.",
   "meld": {
     "file": "context.md",
     "fx": "POW!",
-    "balloon": { "q": "Meld here. Lights on. Every hero read this before they walk in." },
+    "balloon": {
+      "q": "Meld here. Lights on. Every hero read this before they walk in."
+    },
     "caption": "Meld goes in first, reads the whole project, and draws a map, so nobody else wastes time guessing how it works."
   },
-  "hall": "Then eight heroes go in at once. Each has one job, and nobody compares notes until the end.",
+  "hall": "Then nine heroes go in at once, the summoned specialist among them. Each has one job, and nobody compares notes until the end.",
   "heroes": [
-    { "slug": "ledger", "name": "Ledger", "cry": "LEDGER, to the numbers!", "fx": "BIFF!", "portrait": "ledger.jpg",
-      "balloon": { "q": "the arithmetic is clean", "pre": "…", "post": "…" },
-      "caught": "Traced every dollar on the page back to where it came from. The math held. One summary table was quietly counting films still in cinemas, which the page had promised not to do." },
-    { "slug": "doppel", "name": "Doppel", "cry": "DOPPEL, to the join keys!", "fx": "ZLONK!", "portrait": "doppel.jpg",
-      "balloon": { "q": "Two records for the same soul, one row for two souls." },
-      "caught": "Hunted for characters filed twice, or missing. Kraglin was credited in one Guardians film instead of four, and Thanos was missing from two of his." },
-    { "slug": "median", "name": "Median", "cry": "MEDIAN, to the denominators!", "fx": "KAPOW!", "portrait": "median.jpg",
-      "balloon": { "q": "The five that follow are what the data does not yet forgive." },
-      "caught": "Checked every average and what it was an average of. One headline said \"one to seven films a year\" because it counted this year's half-finished slate, and another named the wrong two films as the most expensive." },
-    { "slug": "chartjunk", "name": "Chartjunk", "cry": "CHARTJUNK, to the axes!", "fx": "SOCK!", "portrait": "chartjunk.jpg",
-      "balloon": { "q": "shipping under a chart whose whole job is to teach lying", "pre": "…", "post": "…" },
-      "caught": "Studied every chart for ways it could mislead. On the chart built to teach bad charts, one spoke was fed a number that didn't exist, so all six universes looked identical on it." },
-    { "slug": "thumb", "name": "Thumb", "cry": "THUMB, to the phone!", "fx": "WHAMM!", "portrait": "thumb.jpg",
-      "balloon": { "q": "Opened this on a train once. Shrank shortly after." },
-      "caught": "Used the site the way a stranger would, on a phone. Tapping a link in the contents dropped you at the top of the page instead of the section you asked for." },
-    { "slug": "greyscale", "name": "Greyscale", "cry": "GREYSCALE, lights off!", "fx": "THWACKE!", "portrait": "greyscale.jpg",
-      "balloon": { "q": "I ran the page in monochrome and by keyboard." },
-      "caught": "Used the page without color and with a keyboard alone. Mostly solid, but the numbers on Marvel's green tiles were too faint in light mode, and fourteen buttons all sounded the same to a screen reader." },
-    { "slug": "redline", "name": "Redline", "cry": "REDLINE, to the headlines!", "fx": "SPLATT!", "portrait": "redline.jpg",
-      "balloon": { "q": "The Red Pen is out." },
-      "caught": "Read every headline against the data. Three sentences had stopped being true, including which films had the two biggest budgets." },
-    { "slug": "payload", "name": "Payload", "cry": "PAYLOAD, to the network tab!", "fx": "POW!", "portrait": "payload.jpg",
-      "balloon": { "q": "Most of what I would flag on a normal site is not here to flag." },
-      "caught": "Checked the plumbing: speed, security, how the site gets served. Nothing serious. A few redirects were taking the long way round." }
+    {
+      "slug": "ledger",
+      "name": "Ledger",
+      "cry": "LEDGER, to the numbers!",
+      "fx": "BIFF!",
+      "portrait": "ledger.jpg",
+      "balloon": {
+        "q": "the arithmetic is clean",
+        "pre": "…",
+        "post": "…"
+      },
+      "caught": "Traced every dollar on the page back to where it came from. The math held. One summary table was quietly counting films still in cinemas, which the page had promised not to do."
+    },
+    {
+      "slug": "doppel",
+      "name": "Doppel",
+      "cry": "DOPPEL, to the join keys!",
+      "fx": "ZLONK!",
+      "portrait": "doppel.jpg",
+      "balloon": {
+        "q": "Two records for the same soul, one row for two souls."
+      },
+      "caught": "Hunted for characters filed twice, or missing. Kraglin was credited in one Guardians film instead of four, and Thanos was missing from two of his."
+    },
+    {
+      "slug": "median",
+      "name": "Median",
+      "cry": "MEDIAN, to the denominators!",
+      "fx": "KAPOW!",
+      "portrait": "median.jpg",
+      "balloon": {
+        "q": "The five that follow are what the data does not yet forgive."
+      },
+      "caught": "Checked every average and what it was an average of. One headline said \"one to seven films a year\" because it counted this year's half-finished slate, and another named the wrong two films as the most expensive."
+    },
+    {
+      "slug": "chartjunk",
+      "name": "Chartjunk",
+      "cry": "CHARTJUNK, to the axes!",
+      "fx": "SOCK!",
+      "portrait": "chartjunk.jpg",
+      "balloon": {
+        "q": "shipping under a chart whose whole job is to teach lying",
+        "pre": "…",
+        "post": "…"
+      },
+      "caught": "Studied every chart for ways it could mislead. On the chart built to teach bad charts, one spoke was fed a number that didn't exist, so all six universes looked identical on it."
+    },
+    {
+      "slug": "thumb",
+      "name": "Thumb",
+      "cry": "THUMB, to the phone!",
+      "fx": "WHAMM!",
+      "portrait": "thumb.jpg",
+      "balloon": {
+        "q": "Opened this on a train once. Shrank shortly after."
+      },
+      "caught": "Used the site the way a stranger would, on a phone. Tapping a link in the contents dropped you at the top of the page instead of the section you asked for."
+    },
+    {
+      "slug": "greyscale",
+      "name": "Greyscale",
+      "cry": "GREYSCALE, lights off!",
+      "fx": "THWACKE!",
+      "portrait": "greyscale.jpg",
+      "balloon": {
+        "q": "I ran the page in monochrome and by keyboard."
+      },
+      "caught": "Used the page without color and with a keyboard alone. Mostly solid, but the numbers on Marvel's green tiles were too faint in light mode, and fourteen buttons all sounded the same to a screen reader."
+    },
+    {
+      "slug": "redline",
+      "name": "Redline",
+      "cry": "REDLINE, to the headlines!",
+      "fx": "SPLATT!",
+      "portrait": "redline.jpg",
+      "balloon": {
+        "q": "The Red Pen is out."
+      },
+      "caught": "Read every headline against the data. Three sentences had stopped being true, including which films had the two biggest budgets."
+    },
+    {
+      "slug": "payload",
+      "name": "Payload",
+      "cry": "PAYLOAD, to the network tab!",
+      "fx": "POW!",
+      "portrait": "payload.jpg",
+      "balloon": {
+        "q": "Most of what I would flag on a normal site is not here to flag."
+      },
+      "caught": "Checked the plumbing: speed, security, how the site gets served. Nothing serious. A few redirects were taking the long way round."
+    }
   ],
   "report": {
     "file": "REPORT.md",
     "splash": "The report lands!",
     "stats": [
-      { "v": "65", "k": "things found", "quote": "Raw findings across eight reports: **65**" },
-      { "v": "55", "k": "once duplicates merged", "quote": "Deduplicated: **55**" },
-      { "v": "8", "k": "serious enough to fix first", "quote": "Critical: **8**" }
+      {
+        "v": "65",
+        "k": "things found",
+        "quote": "Raw findings across eight reports: **65**"
+      },
+      {
+        "v": "55",
+        "k": "once duplicates merged",
+        "quote": "Deduplicated: **55**"
+      },
+      {
+        "v": "8",
+        "k": "serious enough to fix first",
+        "quote": "Critical: **8**"
+      }
     ],
     "caption": "Everything gets merged and ranked, and the most serious findings are checked against the code before anyone sees the list."
   },
@@ -53,35 +135,51 @@
     "file": "missedit.md",
     "before": "But what's this? A shadow falls across the Hall...",
     "balloons": [
-      { "q": "Eight capes filed reports." },
-      { "q": "Most stood. A few did not." }
+      {
+        "q": "Most stood. A few did not."
+      }
     ],
     "caption": "Doctor Missedit knows every hero's weakness. He can't add a finding. He can only take confidence away.",
     "score": [
-      { "v": "46", "k": "stood up", "quote": "**Stands: 46**" },
-      { "v": "6", "k": "got weaker", "quote": "**Downgraded: 6**" },
-      { "v": "3", "k": "were nothing", "quote": "**Artifact: 3**" }
+      {
+        "v": "46",
+        "k": "stood up",
+        "quote": "**Stands: 46**"
+      },
+      {
+        "v": "6",
+        "k": "got weaker",
+        "quote": "**Downgraded: 6**"
+      },
+      {
+        "v": "3",
+        "k": "were nothing",
+        "quote": "**Artifact: 3**"
+      }
     ],
     "catch": "REPORT.md's own totals do not reconcile to its own list.",
     "catchCaption": "Then he turned on the report itself. It claimed 55 findings. Its own list held 54."
   },
-  "later": {
-    "added": "19 September",
-    "caption": "Beacon joined the team after this episode, so we handed Beacon the same map and let it summon."
-  },
   "beacon": {
     "file": "beacon.md",
     "fx": "ZAAP!",
-    "balloon": { "q": "A signal flares at the edge of the map, over a box office where nobody has asked whether the numbers were counted the same way." },
-    "caption": "Beacon reads Meld's map and summons the one specialist the team doesn't have. For a box office site, that meant someone from the film business.",
+    "balloon": {
+      "q": "A signal flares at the edge of the map, over a box office where nobody has asked whether the numbers were counted the same way."
+    },
+    "caption": "Next, Beacon reads Meld's map and summons the one specialist the team doesn't have. For a box office site, that meant someone from the film business.",
     "cry": "TURNSTILE, to the release groups!"
   },
   "summon": {
-    "slug": "turnstile", "name": "Turnstile", "file": "turnstile.md", "fx": "KER-CHUNK!",
-    "balloon": { "q": "was it measured the same way as the number it sits beside?", "pre": "…" },
+    "slug": "turnstile",
+    "name": "Turnstile",
+    "file": "turnstile.md",
+    "fx": "KER-CHUNK!",
+    "balloon": {
+      "q": "was it measured the same way as the number it sits beside?",
+      "pre": "…"
+    },
     "caught": "Films that opened on a Wednesday looked like they had the best staying power, only because their first days were left out of their \"opening weekend\". And budgets from studio filings were being ranked against smaller press estimates.",
-    "noPortrait": "Summoned heroes arrive without a portrait.",
-    "fixed": "Nine of Turnstile's ten findings were fixed the same day."
+    "noPortrait": "Summoned heroes arrive without a portrait."
   },
-  "credits": "Every finding from the original eight was fixed the same day."
+  "credits": "All but one finding was fixed the same day."
 }
