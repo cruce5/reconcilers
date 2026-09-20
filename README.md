@@ -8,6 +8,21 @@ Ten heroes and one villain that audit any data product before you launch it: num
 - **Sample episode:** https://reconcilers.williamfyost.workers.dev/episode (the real first run, against [The Cape Index](https://capeindex.com))
 - **Download:** https://reconcilers.williamfyost.workers.dev/reconcilers.zip
 
+## Install
+
+**Import it into Claude.** Download [reconcilers.zip](https://reconcilers.williamfyost.workers.dev/reconcilers.zip), then in Claude open Customize, Skills, Import skill, and pick it. Open the folder you want audited and say `/reconcilers`.
+
+**As a plugin, in Claude Code.** This repo is its own marketplace:
+
+```
+/plugin marketplace add cruce5/reconcilers
+/plugin install reconcilers@reconcilers
+```
+
+**Into one project.** Unzip the bundle and run `bundle/install.sh` (or `install.ps1`) from the folder that holds your product. It only copies files: the skill to `.claude/skills/reconcilers/`, the eleven briefs to `.claude/agents/`.
+
+**Anywhere else.** `install.sh --platform codex` writes an `AGENTS.md` that runs the episode in one agent. [PORTING.md](bundle/adapters/PORTING.md) covers Cursor, Aider, Cline or a shell script.
+
 ## What is in this repo
 
 | Path | What it is |
