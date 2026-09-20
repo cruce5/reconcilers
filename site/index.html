@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#0d0f14" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
 <title>The Reconcilers</title>
-<meta name="description" content="Ten heroes and a villain that audit any data product before you launch it: numbers, joins, statistics, charts, UX, accessibility, copy and wiring, plus a specialist summoned for your subject. A Claude Code skill, with a Codex adapter.">
+<meta name="description" content="Ten superheroes check your data product before you launch it: the numbers, the charts, the words, the phone screen, the wiring. Then a villain argues with what they found. A free Claude skill.">
 <link rel="canonical" href="{{ORIGIN}}/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Reconcilers">
@@ -33,7 +33,7 @@
     <div class="rule" aria-hidden="true"></div>
     <p class="tagline">They don&rsquo;t save the world. They check it.</p>
     <p class="byline">By 🏴&zwj;☠️ <a href="https://www.linkedin.com/in/billyost/" target="_blank" rel="noopener">Bill Yost</a></p>
-    <p class="dek">Ten heroes find what your reviewers missed: a number that stopped tying, a label that lies, a chart that misleads by accident. One of them, Beacon, summons a specialist for your subject. Ten minutes, on your machine, free. Then Doctor Missedit turns up uninvited and picks apart their findings.</p>
+    <p class="dek">Ten superheroes read your dashboard, report or dataset before anyone else does. Each one checks a single thing: the numbers, the charts, the words, the phone screen, the wiring underneath. Ten minutes, free, on your machine. Then a villain turns up and argues with what they found.</p>
     <div class="cta-row">
       <a class="btn primary" href="/reconcilers.zip" download>&darr; Download the bundle <span class="sub">zip &middot; {{ZIP_KB}} KB</span></a>
       <a class="btn" href="/episode">Read issue No. 1 &rarr;</a>
@@ -48,7 +48,7 @@
     <div class="view-head">
       <p class="eyebrow">Get the team</p>
       <h2>Import it, or copy it in</h2>
-      <p class="dek">The bundle is a Claude skill and eleven hero briefs. Nothing to compile, no account to make, no key to paste.</p>
+      <p class="dek">One zip: a Claude skill and eleven hero briefs. Nothing to compile, nothing to sign up for, no key to paste.</p>
     </div>
     <div class="ways">
       <div class="card way">
@@ -59,14 +59,14 @@
           <li>In Claude, open <b>Customize</b>, then <b>Skills</b>, then <b>Import skill</b>, and pick the zip.</li>
           <li>Open the folder you want audited and say <span class="mono">/reconcilers</span>.</li>
         </ol>
-        <p class="way-note">Rides along with your account, so it is there in every project. The heroes travel inside the skill, so the team still runs in parallel.</p>
+        <p class="way-note">Goes with your account, so the team is there in every project. The heroes ride along inside the skill.</p>
       </div>
       <div class="card way">
         <p class="way-n">In Claude Code</p>
         <h3>One command</h3>
         <pre class="step-cmd" aria-label="plugin install"><code>/plugin marketplace add cruce5/reconcilers
 /plugin install reconcilers@reconcilers</code></pre>
-        <p class="way-note">Installs the skill and all eleven heroes at once, and updates with the repo. Then say <span class="mono">/reconcilers</span>.</p>
+        <p class="way-note">Skill and all eleven heroes at once, and it updates with the repo. Then say <span class="mono">/reconcilers</span>.</p>
       </div>
       <div class="card way">
         <p class="way-n">Per project</p>
@@ -74,16 +74,16 @@
         <pre class="step-cmd" aria-label="install commands"><code><span class="c"># from the folder that holds your product</span>
 bash /path/to/reconcilers/install.sh
 &amp; "C:path	oeconcilersinstall.ps1"</code></pre>
-        <p class="way-note">The installer only copies files: the skill to <span class="mono">.claude/skills/reconcilers/</span>, the eleven briefs to <span class="mono">.claude/agents/</span>. Copy them by hand if you would rather. Then run <span class="mono">claude</span> and say <span class="mono">/reconcilers</span>.</p>
+        <p class="way-note">The installer only copies files: the skill to <span class="mono">.claude/skills/reconcilers/</span>, the briefs to <span class="mono">.claude/agents/</span>. Do it by hand if you would rather. Then say <span class="mono">/reconcilers</span>.</p>
       </div>
       <div class="card way">
         <p class="way-n">Somewhere else</p>
         <h3>Codex, Cursor, anything</h3>
         <pre class="step-cmd" aria-label="codex install"><code>bash /path/to/reconcilers/install.sh --platform codex</code></pre>
-        <p class="way-note">Writes an <span class="mono">AGENTS.md</span> that runs the whole episode in one agent. For Cursor, Aider, Cline or a shell script, the porting guide is one page.</p>
+        <p class="way-note">Writes an <span class="mono">AGENTS.md</span> that runs the episode in one agent. For Cursor, Aider or a shell script, the porting guide is one page.</p>
       </div>
     </div>
-    <p class="promise"><b>Read-only.</b> The team never edits, commits or deploys your product. <b>Local.</b> Nothing about it leaves your machine except through the AI model you were going to use anyway. Every report lands in <span class="mono">.reconcilers/</span> beside your code, and fixing is a separate conversation that you start.</p>
+    <p class="promise"><b>They only read.</b> Nobody edits, commits or deploys your work. Reports land in <span class="mono">.reconcilers/</span> next to it, and fixing anything is a separate conversation you start. Nothing leaves your machine except through the model you were already using.</p>
   </section>
 
 <section class="view" id="roster">
@@ -91,7 +91,7 @@ bash /path/to/reconcilers/install.sh
     <div class="view-head">
       <p class="eyebrow">Meet the roster</p>
       <h2>Eight own a lane. Two go in first. One is a villain.</h2>
-      <p class="dek">Meld reads the room, Beacon summons a specialist for your subject, and the rest work in parallel without comparing notes until the compiled report. Then Doctor Missedit shows up uninvited. Every hero runs on the model that suits its lane.</p>
+      <p class="dek">Meld maps the place. Beacon calls in a specialist for your subject. The eight go in at once and never compare notes, which is the point: nobody talks anybody out of a finding. Then the Doctor arrives.</p>
     </div>
 {{CAROUSEL}}
   </div>
@@ -104,8 +104,8 @@ bash /path/to/reconcilers/install.sh
       <h2>Same Bat-time, same Bat-channel</h2>
     </div>
     <div class="card">
-      <p>It is meant to feel like calling a superhero team, and specifically like 1966. The title card names the episode after your product. Meld reads the room. Beacon reaches across the multiverse for the one specialist your subject needs, or stands down if the eight already cover it. The eight go in on one breath alongside the summon, each report lands with a sound effect, and the compiled report is ranked, deduplicated and cross-checked. Then: <em>HOLD IT!</em> A shadow falls across the Hall, and Doctor Missedit, who may only remove confidence from a finding and never add one, reads every report with each hero&rsquo;s weakness in one hand and the evidence in the other.</p>
-      <p>House rules the theatre never overrides: only verified findings in the ranking, every finding cites a file and line or a screen, every report ends with what was checked clean, and no em dashes, which is a team quirk you should not fight.</p>
+      <p>It is built to feel like calling a superhero team, and specifically like 1966. A title card names the episode after your product. Meld reads the room. Beacon reaches across the multiverse, or stands down if the eight already have you covered. Reports land one by one with a sound effect. Then: <em>HOLD IT!</em> A shadow falls across the Hall, and Doctor Missedit starts taking the findings apart.</p>
+      <p>House rules nobody gets to override: a finding only makes the list if it was checked, every one of them points at a file and line or a screen, and each report ends with what turned out to be fine. Also no em dashes, which is a team quirk you should not fight.</p>
       <p><a href="/episode">Read the first real episode, as a comic &rarr;</a></p>
     </div>
   </div>
@@ -116,13 +116,13 @@ bash /path/to/reconcilers/install.sh
     <div class="grid-2">
       <div class="card">
         <p class="eyebrow">Born on The Cape Index</p>
-        <h3>They audited the site they were built on first</h3>
-        <p>The team was assembled to check <a href="{{CAPEINDEX}}" target="_blank" rel="noopener">capeindex.com</a>, a report on every Marvel and DC film since 2000. They found 78 things, 55 once the overlaps merged, and the Doctor found 7 places the fixes had missed. On a site built by the person who built them.</p>
+        <h3>They audited their own house first</h3>
+        <p>I built them to check <a href="{{CAPEINDEX}}" target="_blank" rel="noopener">capeindex.com</a>, a report on every Marvel and DC film since 2000. They found plenty. Then the Doctor found the places my fixes had missed, which was worse.</p>
       </div>
       <div class="card">
         <p class="eyebrow">Other runtimes</p>
         <h3>Claude Code by default, not only</h3>
-        <p>The bundle ships an <a href="{{GITHUB}}/tree/main/bundle/adapters" target="_blank" rel="noopener">adapter for Codex</a> that runs the same episode in one agent, and a one-page <a href="{{GITHUB}}/blob/main/bundle/adapters/PORTING.md" target="_blank" rel="noopener">porting guide</a> for Cursor, Aider, Cline or a shell script. Standard roster is Sonnet and Opus; a flamethrower option puts every hero on Fable and tells you what it will cost in tokens first.</p>
+        <p>There is an <a href="{{GITHUB}}/tree/main/bundle/adapters" target="_blank" rel="noopener">adapter for Codex</a> that runs the same episode in one agent, and a one-page <a href="{{GITHUB}}/blob/main/bundle/adapters/PORTING.md" target="_blank" rel="noopener">porting guide</a> for Cursor, Aider or a shell script. Standard roster is Sonnet and Opus. There is also a flamethrower option that puts every hero on Fable and tells you the bill first.</p>
       </div>
     </div>
   </div>
