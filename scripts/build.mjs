@@ -137,7 +137,7 @@ const ps = dashes.length
   ? `P.S. Nobody caught this one, the Doctor included: ${dashes.map((d) => `${d.who}&rsquo;s report broke the team&rsquo;s own no-em-dash rule ${WORDS[d.n] || d.n} time${d.n === 1 ? "" : "s"}`).join("; ")}.`
   : "";
 
-const img = (file, alt) => `<img src="/portraits/${esc(file)}" width="800" height="1000" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+const img = (file, alt) => `<img src="/portraits/${esc(file)}" width="720" height="720" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 const sfx = (t, cls = "") => `<span class="sfx${cls}" aria-hidden="true">${esc(t)}</span>`;
 const cap = (t, cls = "") => `<p class="cap${cls}">${esc(t)}</p>`;
 const heroPanel = (h) => `<figure class="panel hero">
@@ -176,7 +176,7 @@ const episode = `<!doctype html>
   <header class="panel cover">
     <div class="cover-top"><span class="issue">${esc(ep.issue)}</span><span class="brand">The Reconcilers</span><span class="price">${esc(ep.date)}</span></div>
     <h1 class="cover-title">${esc(ep.title)}</h1>
-    <div class="cover-cast" aria-hidden="true">${cast.map((c) => `<img src="/portraits/${c}.jpg" width="800" height="1000" alt="" decoding="async">`).join("")}</div>
+    <div class="cover-cast" aria-hidden="true">${cast.map((c) => `<img src="/portraits/${c}.jpg" width="720" height="720" alt="" decoding="async">`).join("")}</div>
     <p class="cover-tag">Eleven heroes. One box office site. And a villain who audits the auditors!</p>
   </header>
   <p class="indicia">${esc(ep.indicia)}</p>
@@ -207,7 +207,7 @@ const episode = `<!doctype html>
     ${ep.heroes.map(heroPanel).join("\n    ")}
     </div>
     <figure class="panel hero wide">
-      <div class="art summoned"><span class="silhouette" aria-hidden="true">?</span><span class="noportrait">${esc(ep.summon.noPortrait)}</span>${sfx(ep.summon.fx, " violet")}</div>
+      <div class="art">${img(ep.summon.portrait, ep.summon.name)}${sfx(ep.summon.fx, " violet")}</div>
       <div class="words">
         ${cap(ep.beacon.cry, " cry")}
         ${balloon(ep.summon.file, ep.summon.balloon, ep.summon.name)}

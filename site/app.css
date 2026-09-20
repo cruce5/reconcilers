@@ -106,7 +106,7 @@ section.view:last-of-type { border-bottom: 0; }
 .rec-carousel { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
 .rec-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
 .rec-track::-webkit-scrollbar { display: none; }
-.rec-slide { flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: 320px 1fr; gap: 24px; padding: 24px 28px; min-height: 440px; }
+.rec-slide { flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 28px; padding: 24px 28px; min-height: 440px; }
 .rec-portrait { align-self: center; }
 .rec-portrait img { display: block; width: 100%; height: auto; border-radius: 12px; background: var(--surface-2); }
 .rec-info h5 { font-size: 34px; }
@@ -145,7 +145,7 @@ section.view:last-of-type { border-bottom: 0; }
   .card { padding: 16px; }
   .grid-2 { grid-template-columns: 1fr; }
   .rec-slide { grid-template-columns: 1fr; gap: 16px; padding: 18px 18px 22px; min-height: 0; }
-  .rec-portrait { max-width: 240px; margin: 0 auto; }
+  .rec-portrait { max-width: 300px; margin: 0 auto; }
   .rec-info h5 { font-size: 26px; }
   .rec-nav { top: 200px; transform: none; }
 }

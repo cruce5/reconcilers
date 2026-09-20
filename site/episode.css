@@ -73,22 +73,17 @@ body.comic-body { background: var(--c-page); }
 
 /* ---------- hero panels ---------- */
 .hero { display: grid; gap: 14px; align-content: start; }
-.hero .art { position: relative; margin: -16px -16px 0; border-bottom: 3px solid var(--c-ink); aspect-ratio: 4 / 3; overflow: hidden; background: var(--c-page); }
-.hero .art img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 16%; }
+.hero .art { position: relative; margin: -16px -16px 0; border-bottom: 3px solid var(--c-ink); aspect-ratio: 1 / 1; overflow: hidden; background: var(--c-page); }
+.hero .art img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 /* in a wide panel the art takes the height of the words beside it, not the photo's own height */
 .hero.wide .art img { position: absolute; inset: 0; }
 .hero .cry { justify-self: start; margin-top: -2px; }
 .hero > .balloon { margin-top: 6px; }
 .hero.wide { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px; }
-.hero.wide .art { margin: -16px 0 -16px -16px; border-bottom: 0; border-right: 3px solid var(--c-ink); aspect-ratio: auto; min-height: 340px; }
+.hero.wide .art { margin: -16px 0 -16px -16px; border-bottom: 0; border-right: 3px solid var(--c-ink); aspect-ratio: 1 / 1; min-height: 0; }
 .hero.wide .words { display: grid; gap: 16px; align-content: center; justify-items: start; padding: 6px 0; }
 .hero.wide .words .balloon { margin-top: 8px; }
 
-/* a summoned hero arrives without a portrait */
-.art.summoned { display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--c-violet) 35%, transparent), transparent 60%), var(--c-page); }
-.silhouette { font-family: var(--font-display); font-weight: 700; font-size: 150px; line-height: 1; color: var(--c-violet); opacity: 0.85; }
-.noportrait { position: absolute; bottom: 12px; left: 12px; right: 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); text-align: center; }
-.cap.fixed { background: var(--c-balloon); }
 
 /* ---------- cover ---------- */
 .cover { padding: 18px 20px 20px; display: grid; gap: 14px; background-color: #1a1030; background-image: radial-gradient(rgba(255, 210, 63, 0.12) 1.4px, transparent 1.6px), linear-gradient(160deg, #2a1650, #0d0f14 70%); background-size: 8px 8px, auto; }
@@ -102,7 +97,7 @@ body.comic-body { background: var(--c-page); }
   transform: skewX(-6deg); transform-origin: left;
 }
 .cover-cast { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
-.cover-cast img { width: 100%; height: auto; aspect-ratio: 1 / 1.1; object-fit: cover; object-position: 50% 15%; border: 3px solid #0b0c10; outline: 2px solid #f2f3f7; transform: rotate(-2deg); }
+.cover-cast img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 50%; border: 3px solid #0b0c10; outline: 2px solid #f2f3f7; transform: rotate(-2deg); }
 .cover-cast img:nth-child(even) { transform: rotate(2deg) translateY(6px); }
 .cover-cast img:last-child { outline-color: var(--c-red); }
 .cover-tag { margin: 6px 0 0; justify-self: start; padding: 8px 12px; background: var(--c-red); color: #fff; border: 2px solid #0b0c10; font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 2vw, 19px); text-transform: uppercase; letter-spacing: 0.03em; transform: rotate(-1deg); }
@@ -143,13 +138,12 @@ body.comic-body { background: var(--c-page); }
 @media (max-width: 760px) {
   .page .grid { grid-template-columns: minmax(0, 1fr); }
   .hero.wide { grid-template-columns: minmax(0, 1fr); gap: 14px; }
-  .hero.wide .art { margin: -16px -16px 0; border-right: 0; border-bottom: 3px solid var(--c-ink); aspect-ratio: 4 / 3; min-height: 0; }
+  .hero.wide .art { margin: -16px -16px 0; border-right: 0; border-bottom: 3px solid var(--c-ink); aspect-ratio: 1 / 1; min-height: 0; }
   .hero.wide .words { padding: 0; }
   .cover-cast { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .stats { gap: 4px; }
   .stat { padding: 22px 2px 18px; }
   .stat > span:not(.burst) { font-size: 11.5px; }
-  .silhouette { font-size: 110px; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .hero:hover .sfx { transform: rotate(-12deg) skewX(-8deg) scale(1.08); transition: transform 160ms; }
