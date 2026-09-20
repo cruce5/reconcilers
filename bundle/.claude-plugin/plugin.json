@@ -1,0 +1,7 @@
+{
+  "name": "reconcilers",
+  "description": "Ten heroes audit your data product in parallel, one lane each. Beacon summons a specialist for your subject. Then Doctor Missedit audits their findings.",
+  "version": "1.1.0",
+  "author": { "name": "Bill Yost", "url": "https://www.linkedin.com/in/billyost/" },
+  "homepage": "https://reconcilers.williamfyost.workers.dev"
+}

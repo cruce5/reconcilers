@@ -47,41 +47,37 @@
   <div class="wrap">
     <div class="view-head">
       <p class="eyebrow">Get the team</p>
-      <h2>Three steps and a slash command</h2>
+      <h2>Import it, or copy it in</h2>
+      <p class="dek">The bundle is a Claude skill and eleven hero briefs. Nothing to compile, no account to make, no key to paste.</p>
     </div>
-    <div class="card">
-      <ol class="rec-steps">
-        <li>
-          <span class="step-n" aria-hidden="true">1</span>
-          <div>
-            <div class="step-title">Download the bundle and unzip it wherever you keep tools.</div>
-            <div class="step-note">You will point at your product from a separate folder, not from inside this one.</div>
-          </div>
-        </li>
-        <li>
-          <span class="step-n" aria-hidden="true">2</span>
-          <div>
-            <div class="step-title">In the folder that holds your product, run the installer.</div>
-            <pre class="step-cmd" aria-label="install commands"><code><span class="c"># cd into your dashboard, notebook or repo, then run one of these:</span>
+    <div class="ways">
+      <div class="card way">
+        <p class="way-n">The easy way</p>
+        <h3>Import the zip into Claude</h3>
+        <ol class="way-steps">
+          <li>Download the bundle below.</li>
+          <li>In Claude, open <b>Customize</b>, then <b>Skills</b>, then <b>Import skill</b>, and pick the zip.</li>
+          <li>Open the folder you want audited and say <span class="mono">/reconcilers</span>.</li>
+        </ol>
+        <p class="way-note">Rides along with your account, so it is there in every project. The heroes travel inside the skill, so the team still runs in parallel.</p>
+      </div>
+      <div class="card way">
+        <p class="way-n">Per project</p>
+        <h3>Copy it into one repo</h3>
+        <pre class="step-cmd" aria-label="install commands"><code><span class="c"># from the folder that holds your product</span>
 bash /path/to/reconcilers/install.sh
-&amp; "C:\path\to\reconcilers\install.ps1"
-bash /path/to/reconcilers/install.sh --platform codex</code></pre>
-          </div>
-        </li>
-        <li>
-          <span class="step-n" aria-hidden="true">3</span>
-          <div>
-            <div class="step-title">Call them.</div>
-            <pre class="step-cmd" aria-label="call commands"><code>claude
-/reconcilers</code></pre>
-            <div class="step-note">On Codex, say: <code>run the Reconcilers episode against this repo</code>.</div>
-          </div>
-        </li>
-      </ol>
-      <p class="promise"><b>Read-only.</b> The team never edits, commits or deploys your product. <b>Local.</b> Nothing about it leaves your machine except through the AI model you were going to use anyway. Every report lands in <span class="mono">.reconcilers/</span> beside your code, and fixing is a separate conversation that you start.</p>
+&amp; "C:path	oeconcilersinstall.ps1"</code></pre>
+        <p class="way-note">The installer only copies files: the skill to <span class="mono">.claude/skills/reconcilers/</span>, the eleven briefs to <span class="mono">.claude/agents/</span>. Copy them by hand if you would rather. Then run <span class="mono">claude</span> and say <span class="mono">/reconcilers</span>.</p>
+      </div>
+      <div class="card way">
+        <p class="way-n">Somewhere else</p>
+        <h3>Codex, Cursor, anything</h3>
+        <pre class="step-cmd" aria-label="codex install"><code>bash /path/to/reconcilers/install.sh --platform codex</code></pre>
+        <p class="way-note">Writes an <span class="mono">AGENTS.md</span> that runs the whole episode in one agent. For Cursor, Aider, Cline or a shell script, the porting guide is one page.</p>
+      </div>
     </div>
-  </div>
-</section>
+    <p class="promise"><b>Read-only.</b> The team never edits, commits or deploys your product. <b>Local.</b> Nothing about it leaves your machine except through the AI model you were going to use anyway. Every report lands in <span class="mono">.reconcilers/</span> beside your code, and fixing is a separate conversation that you start.</p>
+  </section>
 
 <section class="view" id="roster">
   <div class="wrap">

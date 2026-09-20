@@ -28,7 +28,9 @@ There are two model rosters. **Standard issue** is the table above. **Flamethrow
 
 ## Install
 
-**Claude Code** (default). From the folder that holds the product you want audited:
+**Import the zip into Claude** (easiest, and it follows your account everywhere). In Claude, open Customize, then Skills, then Import skill, and pick `reconcilers.zip`. Open the folder you want audited and say `/reconcilers`. The heroes ride along inside the skill, so the team still runs in parallel.
+
+**Copy it into one project.** From the folder that holds the product you want audited:
 
 ```bash
 bash <path-to-this-folder>/install.sh                        # macOS / Linux
@@ -48,7 +50,16 @@ Copies `adapters/codex/AGENTS.md` to `AGENTS.md` at the repo root. Codex reads i
 
 **Any other runtime.** Read `adapters/PORTING.md`: it defines the protocol in one page so a Cursor rules file, an Aider `CONVENTIONS.md`, a Cline `CLAUDE.md`, or a shell script can host the team. The mandates travel unchanged; only the surrounding metadata (dispatcher, model choice, tools) is per-runtime.
 
-To uninstall, delete whatever the installer copied.
+**As a plugin.** This repo is its own marketplace, so Claude Code can install the skill and all eleven heroes in one go:
+
+```
+/plugin marketplace add cruce5/reconcilers
+/plugin install reconcilers@reconcilers
+```
+
+Plugin heroes answer to scoped names (`reconcilers:ledger`), which the skill works out for itself.
+
+To uninstall, delete whatever the installer copied, remove the imported skill in Customize, or `/plugin uninstall`.
 
 ## Call them
 

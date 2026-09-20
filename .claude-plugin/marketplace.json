@@ -1,0 +1,12 @@
+{
+  "name": "reconcilers",
+  "owner": { "name": "Bill Yost" },
+  "plugins": [
+    {
+      "name": "reconcilers",
+      "source": "./bundle",
+      "description": "An audit team for data products: ten heroes, a summoner, and a villain who audits the auditors.",
+      "version": "1.1.0"
+    }
+  ]
+}
