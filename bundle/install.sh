@@ -34,15 +34,24 @@ case "$platform" in
 EOF
     ;;
   codex)
-    if [[ -e "$target/AGENTS.md" && ! -e "$target/AGENTS.md.bak" ]]; then
-      cp "$target/AGENTS.md" "$target/AGENTS.md.bak"
-      echo "  Backed up existing AGENTS.md to AGENTS.md.bak"
+    # AGENTS.md is read at startup by Codex and, since 2.1.277, by Claude Code in any folder with no
+    # CLAUDE.md. So the episode does not live in it: the root file gets five lines pointing at the
+    # script, and the script sits beside it until somebody asks for an episode.
+    cp "$bundle/adapters/codex/EPISODE.md" "$target/reconcilers-episode.md"
+    if grep -q "reconcilers-episode.md" "$target/AGENTS.md" 2>/dev/null; then
+      echo "  AGENTS.md already points at the episode; left it alone"
+    elif [[ -e "$target/AGENTS.md" ]]; then
+      printf '\n' >> "$target/AGENTS.md"
+      cat "$bundle/adapters/codex/AGENTS.snippet.md" >> "$target/AGENTS.md"
+      echo "  Added a Reconcilers section to the AGENTS.md that was already here"
+    else
+      cp "$bundle/adapters/codex/AGENTS.snippet.md" "$target/AGENTS.md"
     fi
-    cp "$bundle/adapters/codex/AGENTS.md" "$target/AGENTS.md"
     cat <<EOF
 
-  THE RECONCILERS are on call in $target (Codex adapter)
-  AGENTS.md dropped at the repo root; Codex reads it on startup.
+  THE RECONCILERS are on call in $target (AGENTS.md adapter)
+  The episode is reconcilers-episode.md. AGENTS.md carries five lines pointing at it,
+  so nothing heavy loads into an ordinary session.
 
   Start Codex here and say:  run the Reconcilers episode against this repo
   Same Bat-time. Same Bat-channel.

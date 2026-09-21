@@ -46,7 +46,7 @@ bash <path-to-this-folder>/install.sh --platform codex       # macOS / Linux
 & "<path-to-this-folder>\install.ps1" -Platform codex        # Windows PowerShell
 ```
 
-Copies `adapters/codex/AGENTS.md` to `AGENTS.md` at the repo root. Codex reads it on startup. If an `AGENTS.md` was already there, it is backed up to `AGENTS.md.bak` first.
+Copies the episode to `reconcilers-episode.md` at the repo root and adds five lines to `AGENTS.md` pointing at it. An `AGENTS.md` you already have is kept, with the section appended. The episode itself stays out of the root file on purpose: Codex reads `AGENTS.md` on startup, and so does Claude Code (2.1.277 and later) in any folder with no `CLAUDE.md`, so anything in there is context every session pays for.
 
 **Any other runtime.** Read `adapters/PORTING.md`: it defines the protocol in one page so a Cursor rules file, an Aider `CONVENTIONS.md`, a Cline `CLAUDE.md`, or a shell script can host the team. The mandates travel unchanged; only the surrounding metadata (dispatcher, model choice, tools) is per-runtime.
 

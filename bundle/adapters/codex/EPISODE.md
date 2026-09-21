@@ -1,14 +1,14 @@
-# The Reconcilers · Codex adapter
+# The Reconcilers · the episode, for one agent
 
-*This file is `AGENTS.md`, the project-scoped instruction file Codex reads on startup. It runs the Reconcilers episode inside Codex's single-agent model, keeping every hero's brief and every rule intact.*
+*The whole episode for a runtime with no subagents: every hero brief and every rule, run in order by a single agent. Nothing here runs on its own. `AGENTS.md` at the repo root points at this file, and the agent opens it only when the analyst asks for an episode.*
 
 ## How to run it
 
-Open Codex in the directory that holds the product you want audited, then say:
+Open Codex, or any agent that reads `AGENTS.md`, in the directory that holds the product you want audited, then say:
 
 > Run the Reconcilers episode against this repo.
 
-Codex reads this file, executes the episode below in order, and writes every report to `.reconcilers/` at the repo root. **Read-only.** The team never edits, commits, or deploys the product. Fixing is a separate conversation, and you start it.
+The agent reads this file, works through the episode below in order, and writes every report to `.reconcilers/` at the repo root. **Read-only.** The team never edits, commits, or deploys the product. Fixing is a separate conversation, and you start it.
 
 ## Three answers before anyone moves
 

@@ -21,7 +21,7 @@ Ten heroes and one villain that audit any data product before you launch it: num
 
 **Into one project.** Unzip the bundle and run `bundle/install.sh` (or `install.ps1`) from the folder that holds your product. It only copies files: the skill to `.claude/skills/reconcilers/`, the eleven briefs to `.claude/agents/`.
 
-**Anywhere else.** `install.sh --platform codex` writes an `AGENTS.md` that runs the episode in one agent. [PORTING.md](bundle/adapters/PORTING.md) covers Cursor, Aider, Cline or a shell script.
+**Anywhere else.** `install.sh --platform codex` drops `reconcilers-episode.md` at the repo root and points `AGENTS.md` at it, so one agent can run the whole episode when asked and nothing heavy loads into ordinary sessions. [PORTING.md](bundle/adapters/PORTING.md) covers Cursor, Aider, Cline or a shell script.
 
 ## What is in this repo
 
