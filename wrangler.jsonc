@@ -6,10 +6,10 @@
     "directory": "./dist",
     "not_found_handling": "404-page"
   },
-  // Served on the free workers.dev address until a domain is bought. When it is, add:
-  //   "routes": [{ "pattern": "<domain>", "custom_domain": true }]
-  // set "origin" in site.config.json to match, and flip capeindex.com's /reconcilers.zip
-  // redirect from 302 to 301.
+  // Attached to reconcilers.billyost.com 2026-09-20. workers.dev stays on so the old
+  // address keeps working; site.config.json points canonical and the sitemap at the new one.
+  // Still to do: flip capeindex.com's /reconcilers.zip redirect from 302 to 301.
+  "routes": [{ "pattern": "reconcilers.billyost.com", "custom_domain": true }],
   "workers_dev": true,
   "observability": { "enabled": true }
 }
