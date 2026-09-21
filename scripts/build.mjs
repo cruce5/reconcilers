@@ -256,7 +256,7 @@ const episode = `<!doctype html>
     <a class="btn" href="{{GITHUB}}/tree/main/episodes/cape-index-2026-09-08" target="_blank" rel="noopener">The heroes&rsquo; raw reports</a>
   </div>
 </main>
-<footer class="foot"><div class="wrap">Built by <a href="https://www.linkedin.com/in/billyost/" target="_blank" rel="noopener">🏴&zwj;☠️ Bill Yost</a>. First run on <a href="${esc(ep.productUrl)}" target="_blank" rel="noopener">${esc(ep.product)}</a>. Source and issues on <a href="{{GITHUB}}" target="_blank" rel="noopener">GitHub</a>.</div></footer>
+<footer class="foot"><div class="wrap">Built by <a href="https://www.linkedin.com/in/billyost/" target="_blank" rel="noopener">🏴&zwj;☠️ Bill Yost</a>. First run on <a href="${esc(ep.productUrl)}" target="_blank" rel="noopener">${esc(ep.product)}</a>. Source and issues on <a href="{{GITHUB}}" target="_blank" rel="noopener">GitHub</a>. More things nobody asked for at <a href="https://billyost.com/">billyost.com</a>.</div></footer>
 </body>
 </html>
 `;
@@ -285,7 +285,7 @@ write(join(DIST, "sitemap.xml"), [
   `  <url><loc>${cfg.origin}/episode</loc><lastmod>${today}</lastmod></url>`,
   "</urlset>", "",
 ].join("\n"));
-write(join(DIST, "404.html"), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark light"><title>Not found · The Reconcilers</title><link rel="stylesheet" href="/app.css"></head><body><header class="mast"><div class="wrap"><p class="eyebrow">404</p><h1>Missedit.</h1><div class="rule" aria-hidden="true"></div><p class="dek">Nothing lives at this address. The Doctor would like it noted that this was not his doing.</p><div class="cta-row"><a class="btn primary" href="/">&larr; Back to the roster</a></div></div></header></body></html>\n`);
+write(join(DIST, "404.html"), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark light"><title>Not found · The Reconcilers</title><link rel="stylesheet" href="/app.css"></head><body><header class="mast"><div class="wrap"><p class="eyebrow">404</p><h1>Missedit.</h1><div class="rule" aria-hidden="true"></div><p class="dek">Nothing lives at this address. The Doctor would like it noted that this was not his doing.</p><div class="cta-row"><a class="btn primary" href="/">&larr; Back to the roster</a><a class="btn" href="https://billyost.com/">billyost.com</a></div></div></header></body></html>\n`);
 
 // ---------- gates ----------
 for (const f of ["index.html", "episode.html", "404.html", "app.css", "episode.css", "carousel.js"]) {

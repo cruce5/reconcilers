@@ -22,7 +22,7 @@ Built on and first run against [The Cape Index](https://capeindex.com), where th
 | **Payload** | Engineering, security, performance. Is the network tab. | Sonnet |
 | **Doctor Missedit** | The audit itself. May only remove confidence from a finding, never add one. Arrives after the heroes, without being asked. | Fable |
 
-Full powers, weaknesses and origins are in `agents/*.md` and on [the Reconcilers site](https://reconcilers.williamfyost.workers.dev/#roster). Watch the [first episode](https://reconcilers.williamfyost.workers.dev/episode).
+Full powers, weaknesses and origins are in `agents/*.md` and on [the Reconcilers site](https://reconcilers.billyost.com/#roster). Watch the [first episode](https://reconcilers.billyost.com/episode).
 
 There are two model rosters. **Standard issue** is the table above. **Flamethrower** puts every hero on Fable. The skill asks which you want before it dispatches anyone, and tells you what it will cost you in tokens, because it is a lot.
 

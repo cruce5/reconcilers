@@ -4,13 +4,13 @@
 
 Ten heroes and one villain that audit any data product before you launch it: numbers, joins, statistics, charts, UX, accessibility, copy and wiring, plus a specialist Beacon summons for your subject. A Claude Code skill, with a Codex adapter and a porting guide for everything else.
 
-- **Site:** https://reconcilers.williamfyost.workers.dev
-- **Sample episode:** https://reconcilers.williamfyost.workers.dev/episode (the real first run, against [The Cape Index](https://capeindex.com))
-- **Download:** https://reconcilers.williamfyost.workers.dev/reconcilers.zip
+- **Site:** https://reconcilers.billyost.com
+- **Sample episode:** https://reconcilers.billyost.com/episode (the real first run, against [The Cape Index](https://capeindex.com))
+- **Download:** https://reconcilers.billyost.com/reconcilers.zip
 
 ## Install
 
-**Import it into Claude.** Download [reconcilers.zip](https://reconcilers.williamfyost.workers.dev/reconcilers.zip), then in Claude open Customize, Skills, Import skill, and pick it. Open the folder you want audited and say `/reconcilers`.
+**Import it into Claude.** Download [reconcilers.zip](https://reconcilers.billyost.com/reconcilers.zip), then in Claude open Customize, Skills, Import skill, and pick it. Open the folder you want audited and say `/reconcilers`.
 
 **As a plugin, in Claude Code.** This repo is its own marketplace:
 
