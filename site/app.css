@@ -158,3 +158,9 @@ section.view:last-of-type { border-bottom: 0; }
 .way-note { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
 .way .step-cmd { margin: 0; }
 @media (max-width: 900px) { .ways { grid-template-columns: minmax(0, 1fr); } }
+
+/* the zip's fingerprint, and how to check it */
+.sha { margin: 12px 0 0; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.5; color: var(--ink-muted); overflow-wrap: anywhere; }
+.sha code { color: var(--ink-2); background: none; padding: 0; }
+.verify { margin: 18px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+.verify b { color: var(--ink); font-weight: 600; }

@@ -39,6 +39,7 @@
       <a class="btn primary" href="/reconcilers.zip" download>&darr; Download the bundle <span class="sub">zip &middot; {{ZIP_KB}} KB</span></a>
       <a class="btn" href="/episode">Read issue No. 1 &rarr;</a>
     </div>
+    <p class="sha">SHA-256 <code>{{ZIP_SHA}}</code> &middot; <a href="#verify">check your copy</a></p>
   </div>
 </header>
 
@@ -84,6 +85,7 @@ bash /path/to/reconcilers/install.sh
         <p class="way-note">Drops the episode next to your code and adds five lines to <span class="mono">AGENTS.md</span> pointing at it, so it stays out of the way until you ask. Works in Codex, and in Claude Code where it reads <span class="mono">AGENTS.md</span> too. For Cursor, Aider or a shell script, the porting guide is one page.</p>
       </div>
     </div>
+    <p class="verify" id="verify"><b>Check your download.</b> The zip is built the same way every time, so its fingerprint should match the one under the button exactly. On a Mac or Linux run <span class="mono">shasum -a 256 reconcilers.zip</span>; on Windows, <span class="mono">Get-FileHash reconcilers.zip</span>. If it does not match, do not install it, and <a href="{{GITHUB}}/issues" target="_blank" rel="noopener">tell me</a>.</p>
     <p class="promise"><b>They only read.</b> Nobody edits, commits or deploys your work. Reports land in <span class="mono">.reconcilers/</span> next to it, and fixing anything is a separate conversation you start. Nothing leaves your machine except through the model you were already using.</p>
   </section>
 

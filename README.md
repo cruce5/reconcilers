@@ -23,6 +23,17 @@ Ten heroes and one villain that audit any data product before you launch it: num
 
 **Anywhere else.** `install.sh --platform codex` drops `reconcilers-episode.md` at the repo root and points `AGENTS.md` at it, so one agent can run the whole episode when asked and nothing heavy loads into ordinary sessions. [PORTING.md](bundle/adapters/PORTING.md) covers Cursor, Aider, Cline or a shell script.
 
+## Check your download
+
+The zip is reproducible: fixed timestamps, sorted entries, so the same source always gives the same bytes. Its SHA-256 is printed under the download button and published at [reconcilers.zip.sha256](https://reconcilers.billyost.com/reconcilers.zip.sha256).
+
+```
+shasum -a 256 reconcilers.zip          # macOS / Linux
+Get-FileHash reconcilers.zip           # Windows PowerShell
+```
+
+To check it against this repo instead of the site, run `npm install && npm run build` and compare `dist/reconcilers.zip`. If a hash ever fails to match, don't install it, and open an issue.
+
 ## What is in this repo
 
 | Path | What it is |

@@ -75,6 +75,12 @@ end.writeUInt32LE(cdir.length, 12); end.writeUInt32LE(offset, 16);
 const zip = Buffer.concat([...locals, cdir, end]);
 writeFileSync(join(DIST, "reconcilers.zip"), zip);
 const zipKB = Math.round(zip.length / 1024);
+// The zip is reproducible (fixed timestamps, sorted entries), so its SHA-256 is a promise anyone can
+// check: download it, or rebuild it from the repo, and the hash matches. Published next to the file in
+// the standard sha256sum format, and printed under the download button.
+const zipSha = createHash("sha256").update(zip).digest("hex");
+writeFileSync(join(DIST, "reconcilers.zip.sha256"), `${zipSha}  reconcilers.zip
+`);
 const agentCount = zipFiles.filter((p) => /[\\/]agents[\\/].+\.md$/.test(p)).length;
 
 // ---------- share card: real portraits, not a motif ----------
@@ -105,7 +111,7 @@ const og = `og.${createHash("sha256").update(png).digest("hex").slice(0, 10)}.pn
 writeFileSync(join(DIST, og), png);
 
 const fill = (s) => s.replaceAll("{{ORIGIN}}", cfg.origin).replaceAll("{{OG}}", og).replaceAll("{{GITHUB}}", cfg.github)
-  .replaceAll("{{CAPEINDEX}}", cfg.capeindex).replaceAll("{{ZIP_KB}}", String(zipKB));
+  .replaceAll("{{CAPEINDEX}}", cfg.capeindex).replaceAll("{{ZIP_KB}}", String(zipKB)).replaceAll("{{ZIP_SHA}}", zipSha);
 
 // ---------- home ----------
 const carousel = readFileSync(join(SITE, "_carousel.html"), "utf8");
@@ -275,6 +281,8 @@ write(join(DIST, "_headers"), [
   "  Cache-Control: public, max-age=31536000, immutable",
   "/og.*",
   "  Cache-Control: public, max-age=31536000, immutable",
+  "/reconcilers.zip.sha256",
+  "  Content-Type: text/plain; charset=utf-8",
   "",
 ].join("\n"));
 write(join(DIST, "robots.txt"), ["User-agent: *", "Allow: /", `Sitemap: ${cfg.origin}/sitemap.xml`, ""].join("\n"));
@@ -301,4 +309,4 @@ if (slideCount !== 11) fail(`carousel has ${slideCount} slides, expected 11`);
 if (agentCount !== 11) fail(`bundle has ${agentCount} agent briefs, expected 11`);
 
 if (fails.length) { console.error("\nBUILD FAILED:\n  " + fails.join("\n  ")); process.exit(1); }
-console.log(`dist/ built · index + episode · ${slideCount} slides · reconcilers.zip ${zipFiles.length} files, ${zipKB} KB (${agentCount} agents) · ${og} · episode ${balloons} balloons, every one verbatim`);
+console.log(`dist/ built · index + episode · ${slideCount} slides · reconcilers.zip ${zipFiles.length} files, ${zipKB} KB, sha256 ${zipSha.slice(0, 12)} (${agentCount} agents) · ${og} · episode ${balloons} balloons, every one verbatim`);
