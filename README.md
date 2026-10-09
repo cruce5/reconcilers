@@ -2,7 +2,7 @@
 
 *They don't save the world. They check it.*
 
-Ten heroes and one villain that audit any data product before you launch it: numbers, joins, statistics, charts, UX, accessibility, copy and wiring, plus a specialist Beacon summons for your subject. A Claude Code skill, with a Codex adapter and a porting guide for everything else.
+Eleven heroes and one villain that audit any data product before you launch it: numbers, joins, statistics, charts, UX, accessibility, copy, wiring and fairness, plus a specialist Beacon summons for your subject. A Claude Code skill, with a Codex adapter and a porting guide for everything else.
 
 - **Site:** https://reconcilers.billyost.com
 - **Sample episode:** https://reconcilers.billyost.com/episode (the real first run, against [The Cape Index](https://capeindex.com))
@@ -38,7 +38,7 @@ To check it against this repo instead of the site, run `npm install && npm run b
 
 | Path | What it is |
 |---|---|
-| `bundle/` | The skill itself: `SKILL.md`, eleven agent briefs, installers, adapters. This is what the zip contains. Start with [bundle/README.md](bundle/README.md). |
+| `bundle/` | The skill itself: `SKILL.md`, twelve agent briefs, installers, adapters. This is what the zip contains. Start with [bundle/README.md](bundle/README.md). |
 | `site/` | The website: page template, styles, carousel, portraits, fonts. |
 | `episodes/` | Real episode runs, unedited. The episode page quotes them verbatim. |
 | `scripts/build.mjs` | Builds `dist/`: zips the bundle, renders the share card and the episode page, writes headers, and fails on any em dash, missing asset, or quote that is not verbatim in its source report. |

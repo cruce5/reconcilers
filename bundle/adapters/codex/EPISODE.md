@@ -15,7 +15,7 @@ The agent reads this file, works through the episode below in order, and writes 
 Ask the user in one turn (three questions in one message):
 
 1. **Target**: directory to audit. Default the current one; confirm it exists.
-2. **Model roster**: `standard` (Codex picks the model per hero: reasoning-strong for Beacon, Ledger, Doppel, Median, Chartjunk, Redline; reasoning-medium for Meld, Thumb, Greyscale, Payload; strongest available for Doctor Missedit and for whatever Beacon summons) or `flamethrower` (the strongest reasoning model Codex offers, for every hero). Say plainly that Flamethrower spends a lot of tokens and that Standard is the default.
+2. **Model roster**: `standard` (Codex picks the model per hero: reasoning-strong for Beacon, Ledger, Doppel, Median, Chartjunk, Redline, Plumb; reasoning-medium for Meld, Thumb, Greyscale, Payload; strongest available for Doctor Missedit and for whatever Beacon summons) or `flamethrower` (the strongest reasoning model Codex offers, for every hero). Say plainly that Flamethrower spends a lot of tokens and that Standard is the default.
 3. **Browser**: may Thumb and Greyscale drive a browser against a running local URL? If yes, get the URL. If no, they audit from source and mark each finding accordingly.
 
 Create `<target>/.reconcilers/` if it does not exist.
@@ -30,7 +30,7 @@ Create `<target>/.reconcilers/` if it does not exist.
 - **Meld goes first, alone.** The other ten read Meld's map before they move.
 - **Beacon goes second.** It reads Meld's map and either casts one bespoke specialist for the product's subject or stands down. It may ask to cast a second; if it does, put the choice to the analyst and default to one.
 - **The heroes work independently.** Codex is one agent; execute the lanes sequentially, but do not let a later lane peek at an earlier lane's report until every hero has filed. Only the compiler and the villain read across.
-- **The villain arrives uninvited.** After the eight and the summon are in and compiled, run Doctor Missedit without asking.
+- **The villain arrives uninvited.** After the nine and the summon are in and compiled, run Doctor Missedit without asking.
 
 ## Style card (the theatre around the reports)
 
@@ -39,7 +39,7 @@ The whole run should feel like a 1966 Batman episode. Keep it to headers and one
 - Opening title card: `🦇 THE RECONCILERS` on one line, then `Episode: "<a title you invent from the product's name, in the show's style>"`
 - Narrator lines are italic and short: *Meanwhile, in the Hall of Reconciliation...* / *Same Bat-time. Same Bat-channel.*
 - A hero dispatch is a bold call: **LEDGER, to the numbers!** **DOPPEL, to the join keys!** and so on.
-- A report landing gets one sound effect as a header, cycling through: `POW!` `BIFF!` `ZLONK!` `KAPOW!` `SOCK!` `WHAMM!` `THWACKE!` `SPLATT!`, followed by the hero's name and their one-sentence in-character opener quoted from the report.
+- A report landing gets one sound effect as a header, cycling through: `POW!` `BIFF!` `ZLONK!` `KAPOW!` `SOCK!` `WHAMM!` `THWACKE!` `SPLATT!` `BAM!`, followed by the hero's name and their one-sentence in-character opener quoted from the report.
 - The cliffhanger before the villain is exactly: `HOLD IT!` then *But what's this? A shadow falls across the Hall...*
 
 ## The episode, step by step
@@ -54,11 +54,11 @@ Run the **Meld** brief below. Write the map to `.reconcilers/context.md`. Print 
 
 Then, *Beacon reaches across the multiverse...*: run the **Beacon** brief. Beacon reads the map and either casts one bespoke specialist for the product's subject, writing its brief to `.reconcilers/summons/<slug>.md`, or stands down (both are correct). If Beacon asks for a second summon, put the case to the analyst in Beacon's own words and default to one. Print `ZAAP!`, Beacon's opener, and the summon's codename and the one line only it can check. The summon joins Act 2.
 
-### Act 2 · The eight and the summon, one by one
+### Act 2 · The nine and the summon, one by one
 
 *Meanwhile, in the Hall of Reconciliation...*
 
-For each of the eight heroes in this order, then Beacon's summon (if any), in one Codex response per hero:
+For each of the nine heroes in this order, then Beacon's summon (if any), in one Codex response per hero:
 - Print the bold dispatch (`LEDGER, to the numbers!` etc.; for the summon, use the cry Beacon gave you).
 - Execute the hero's brief below (for the summon, execute the brief Beacon wrote under `summons/`). Read `.reconcilers/context.md` first. Write the report to `.reconcilers/<hero-or-slug>.md`.
 - Print the sound effect (cycled), the hero's name, and their in-character opener.
@@ -102,9 +102,9 @@ One to two screens. One sentence in character at the top. Plain prose, short lin
 
 ### BEACON · The summon
 
-Powers: reads Meld's map and finds the one thing that is right or wrong about the product's subject on terms only a specialist knows, and that none of the standing eight can catch. Weakness: loves to cast; will summon someone for a plain product the eight already cover, when the honest answer is an empty call.
+Powers: reads Meld's map and finds the one thing that is right or wrong about the product's subject on terms only a specialist knows, and that none of the standing nine can catch. Weakness: loves to cast; will summon someone for a plain product the nine already cover, when the honest answer is an empty call.
 
-Read `context.md`. Name the domain in one line, and name the gap the eight cannot cover, or write `No gap: the standing eight cover this product.` and stop. If there is a real gap, cast exactly one specialist: write a full brief to `.reconcilers/summons/<slug>.md` with a house-style codename (a plain domain word, never one already on the roster), its own Powers / Weakness / Origin, a read-context-first line, three to six numbered checks that verify things in the product's data or source (never a restatement of a standing lane), an Output section in the standard ranked shape, and the model the work deserves. Give the dispatcher one bold dispatch cry. You may ask for a second summon only when the product spans two domains that do not subsume each other; write both briefs, put the case to the analyst in character with the cost, and default to one. Never run two on your own authority.
+Read `context.md`. Name the domain in one line, and name the gap the nine cannot cover, or write `No gap: the standing nine cover this product.` and stop. If there is a real gap, cast exactly one specialist: write a full brief to `.reconcilers/summons/<slug>.md` with a house-style codename (a plain domain word, never one already on the roster), its own Powers / Weakness / Origin, a read-context-first line, three to six numbered checks that verify things in the product's data or source (never a restatement of a standing lane), an Output section in the standard ranked shape, and the model the work deserves. Give the dispatcher one bold dispatch cry. You may ask for a second summon only when the product spans two domains that do not subsume each other; write both briefs, put the case to the analyst in character with the cost, and default to one. Never run two on your own authority.
 
 Return: the gap in one line; each summon's codename, lane, model and dispatch cry; and the second-summon case only under that rule. One sentence in character at the top, a caller lighting a signal at the edge of the map.
 
@@ -172,11 +172,19 @@ Headers as served (curl every asset type, both hosts, plain HTTP), CSP versus re
 
 Findings ranked Critical / Major / Minor (max 12). One-line fix. Then "Checked clean".
 
+### PLUMB · Fairness
+
+Powers: drops a line through the product and sees which way it leans: the rule that scores the same idea differently depending on who said it, the group missing from the data or filed under "Other", the field standing in for race or class. Weakness: sees lean everywhere, and files one awkward example as a pattern. Before ranking, ask: were the examples matched on everything but the group, is the gap bigger than the noise at this n, and can you name the mechanism?
+
+Every rule, word list, regex, model call or prompt that judges what people write: run matched pairs through it (the same meaning in standard edited English, African American English, other dialects, English as a second language, names from different communities) and count the different outcomes. Inputs that proxy a protected trait (postcode, school, name, employment gaps). Who is missing or thin in the data, with n. Outcome gaps by group, with n. Copy that assumes one kind of reader. Code against the product's own published rules. Leave screen readers to Greyscale, truth to Redline, denominators to Median.
+
+Findings ranked Critical / Major / Minor (max 10). One-line fix. Then "Checked clean".
+
 ### DOCTOR MISSEDIT · The audit itself
 
 Powers: encyclopedic knowledge of each hero's weakness. Reads every finding with the hero's tell in one hand and the evidence in the other. Weakness: cannot resist "well, actually"; a team that was mostly right makes him irritable rather than useful. A finding that stands gets one word, `stands`, nothing added.
 
-Input: every file in `.reconcilers/`, including Beacon's summon briefs and reports under `summons/`. Read all of it. Beacon's tell: loves to cast, so ask whether the summon covered a real gap the eight could not, or reran a standing lane in a costume; judge the summoned hero by the weakness Beacon wrote into its own brief. May recompute; may not add findings. If he notices something new, it goes under "Noticed, not filed", max three items, only if two heroes each half-checked it or one hero's number contradicts a sentence another passed.
+Input: every file in `.reconcilers/`, including Beacon's summon briefs and reports under `summons/`. Read all of it. Beacon's tell: loves to cast, so ask whether the summon covered a real gap the nine could not, or reran a standing lane in a costume; judge the summoned hero by the weakness Beacon wrote into its own brief. May recompute; may not add findings. If he notices something new, it goes under "Noticed, not filed", max three items, only if two heroes each half-checked it or one hero's number contradicts a sentence another passed.
 
 Verdicts per finding: **stands** (one word); **downgraded** plus the reason and citation; **artifact** plus the mechanism and citation; **fix mismatch** plus what the finding said, what the fix did, what it should have done (only when fixes have already been applied since the heroes filed).
 

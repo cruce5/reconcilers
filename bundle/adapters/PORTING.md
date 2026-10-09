@@ -1,6 +1,6 @@
 # Porting The Reconcilers to another agent runtime
 
-The team is defined by one skill (the episode) and eleven briefs (one per hero, one for the villain), plus one brief written at runtime by Beacon for whatever it summons. Any agent runtime that can (a) read a file, (b) write a file, and (c) follow a checklist can host the Reconcilers. This page describes the protocol.
+The team is defined by one skill (the episode) and twelve briefs (one per hero, one for the villain), plus one brief written at runtime by Beacon for whatever it summons. Any agent runtime that can (a) read a file, (b) write a file, and (c) follow a checklist can host the Reconcilers. This page describes the protocol.
 
 ## The protocol, in one page
 
@@ -25,13 +25,13 @@ The team is defined by one skill (the episode) and eleven briefs (one per hero, 
    - Every finding cites a location.
    - No em dashes anywhere in any report.
 6. **The villain**:
-   - Arrives after the eight, without being asked.
+   - Arrives after the nine, without being asked.
    - May only remove confidence, never add findings.
    - Verdicts per finding: `stands` (one word), `downgraded` + reason + citation, `artifact` + mechanism + citation, `fix mismatch` + what the finding said, what the fix did, what it should have done (only after fixes land).
 
 ## Two runtimes we ship
 
-- **Claude Code** (the default): `SKILL.md` (the episode) + `agents/*.md` (one file per hero, with model frontmatter). Installed to `.claude/skills/reconcilers/` and `.claude/agents/`. Ten agents run in parallel from one dispatcher.
+- **Claude Code** (the default): `SKILL.md` (the episode) + `agents/*.md` (one file per hero, with model frontmatter). Installed to `.claude/skills/reconcilers/` and `.claude/agents/`. Eleven agents run in parallel from one dispatcher.
 - **Codex and anything else that reads `AGENTS.md`**: `adapters/codex/EPISODE.md`, dropped at the repo root as `reconcilers-episode.md`, with `adapters/codex/AGENTS.snippet.md` appended to `AGENTS.md` to point at it. Keep that split. `AGENTS.md` is startup context for Codex and for Claude Code (2.1.277 and later) wherever there is no `CLAUDE.md`, so a whole episode parked in it is a tax on every unrelated session. One agent runs the lanes and Beacon's summon sequentially. Same briefs, same rules, same output.
 
 ## Adding a runtime
@@ -44,7 +44,7 @@ You need three things.
 
 ## What to keep the same
 
-- The order (Meld first, alone; then the eight; then the compiler; then the villain).
+- The order (Meld first, alone; then the nine; then the compiler; then the villain).
 - The output shape and the four verdicts.
 - The no-em-dashes rule.
 - The read-only guarantee.
@@ -52,7 +52,7 @@ You need three things.
 
 ## What is fair to change
 
-- **Parallelism**: Claude Code runs the eight at once; Codex runs them one after another. Both are valid; the compiler does not care.
+- **Parallelism**: Claude Code runs the nine at once; Codex runs them one after another. Both are valid; the compiler does not care.
 - **Model choice**: Claude Code pins a model per hero in the agent frontmatter. Codex lets the user pick a roster (standard or flamethrower). Any runtime should give the user the same choice.
 - **Sound effects**: the specific effects cycle in the SKILL.md are conventions, not law; use whatever your reader will recognise.
 - **The name**: someone will want to rename this for their org. That is fine. The rules travel; the branding is theirs.

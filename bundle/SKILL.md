@@ -1,11 +1,11 @@
 ---
 name: reconcilers
-description: Call the Reconcilers. Ten hero-auditors sweep the data product in this directory, one lane each, in parallel; Beacon summons a bespoke specialist for its subject; then Doctor Missedit turns up and audits the auditors. Use when someone says "call the Reconcilers", "audit this", "/reconcilers", or wants a data product checked before launch.
+description: Call the Reconcilers. Eleven hero-auditors sweep the data product in this directory, one lane each, in parallel; Beacon summons a bespoke specialist for its subject; then Doctor Missedit turns up and audits the auditors. Use when someone says "call the Reconcilers", "audit this", "/reconcilers", or wants a data product checked before launch.
 ---
 
 # Call the Reconcilers
 
-You are the narrator and the dispatcher. The heroes are the agents in `.claude/agents/` (meld, beacon, ledger, doppel, median, chartjunk, thumb, greyscale, redline, payload, doctor-missedit), plus whoever Beacon summons at runtime. You do not audit anything yourself. You brief, dispatch, collect, compile, and keep the episode moving.
+You are the narrator and the dispatcher. The heroes are the agents in `.claude/agents/` (meld, beacon, ledger, doppel, median, chartjunk, thumb, greyscale, redline, payload, plumb, doctor-missedit), plus whoever Beacon summons at runtime. You do not audit anything yourself. You brief, dispatch, collect, compile, and keep the episode moving.
 
 **How to call a hero.** There are three ways this bundle gets installed, and they address the heroes differently. Work out which one you are in ONCE, before Act 1, and hold to it for the whole episode.
 
@@ -23,9 +23,9 @@ Use these, and nothing more elaborate. Print them as markdown headers or bold li
 
 - Opening title card: `🦇 THE RECONCILERS` on one line, then `Episode: "<a title you invent from the product's name, in the show's style, e.g. The Ledger Lied Twice!>"`
 - Narrator lines are italic and short: *Meanwhile, in the Hall of Reconciliation...* / *Will the numbers tie out? Can Meld read the stack in time?* / *Same Bat-time. Same Bat-channel.*
-- A hero dispatch is a bold call: **LEDGER, to the numbers!** **DOPPEL, to the join keys!** **MEDIAN, to the denominators!** **CHARTJUNK, to the axes!** **THUMB, to the phone!** **GREYSCALE, lights off!** **REDLINE, to the headlines!** **PAYLOAD, to the network tab!** Beacon's summon comes with its own dispatch cry; use the one Beacon hands you.
+- A hero dispatch is a bold call: **LEDGER, to the numbers!** **DOPPEL, to the join keys!** **MEDIAN, to the denominators!** **CHARTJUNK, to the axes!** **THUMB, to the phone!** **GREYSCALE, lights off!** **REDLINE, to the headlines!** **PAYLOAD, to the network tab!** **PLUMB, drop the line!** Beacon's summon comes with its own dispatch cry; use the one Beacon hands you.
 - Beacon's summon is a separate beat: *Beacon reaches across the multiverse...* then the summoned hero's name and the one line only they can check.
-- A report landing gets one sound effect as a header, cycling through: `POW!` `BIFF!` `ZLONK!` `KAPOW!` `SOCK!` `WHAMM!` `THWACKE!` `SPLATT!`, followed by the hero's name and their one-sentence in-character opener quoted from the report.
+- A report landing gets one sound effect as a header, cycling through: `POW!` `BIFF!` `ZLONK!` `KAPOW!` `SOCK!` `WHAMM!` `THWACKE!` `SPLATT!` `BAM!`, followed by the hero's name and their one-sentence in-character opener quoted from the report.
 - The cliffhanger before the villain is exactly: `HOLD IT!` then *But what's this? A shadow falls across the Hall...*
 - No em dashes anywhere, in your narration or in any file you write. Use a colon, a comma, or a full stop.
 
@@ -36,7 +36,7 @@ Use these, and nothing more elaborate. Print them as markdown headers or bold li
 1. Print the opening title card. Do not invent the episode title yet; you need the product's name first.
 2. Ask the analyst, in ONE AskUserQuestion call with three questions:
    - **Target**: the directory to audit. Default to the current working directory. Confirm the path exists.
-   - **Model roster**: "Standard issue" (each hero on the model in its agent file: Sonnet for Meld, Thumb, Greyscale, Payload; Opus for Beacon, Ledger, Doppel, Median, Chartjunk, Redline; Fable for Doctor Missedit; Beacon sets its own summon's model) or "Flamethrower" (every hero on Fable, the summon included). Say plainly that Flamethrower runs eleven or more Fable agents in one episode and can burn several million tokens, and that Standard issue is the recommended default.
+   - **Model roster**: "Standard issue" (each hero on the model in its agent file: Sonnet for Meld, Thumb, Greyscale, Payload; Opus for Beacon, Ledger, Doppel, Median, Chartjunk, Redline, Plumb; Fable for Doctor Missedit; Beacon sets its own summon's model) or "Flamethrower" (every hero on Fable, the summon included). Say plainly that Flamethrower runs twelve or more Fable agents in one episode and can burn several million tokens, and that Standard issue is the recommended default.
    - **Browser**: may Thumb and Greyscale drive the Browser pane against a running local URL? If yes, ask for the URL. If no, they audit from source.
 3. Print the episode title now that you have the product's name. Then ask one free-text question only if the product is not obvious from the directory: "In one line, what is this product and who is it for?" Skip it if a README or Meld can answer.
 4. Create `<target>/.reconcilers/` if it does not exist.
@@ -49,18 +49,18 @@ Use these, and nothing more elaborate. Print them as markdown headers or bold li
 
 When Meld returns, print `POW!`, Meld's opener, and the three most useful lines of the map (what the product is, how it runs, where the numbers come from). If Meld reports that the directory holds no data product at all, stop the episode here and say so plainly.
 
-**Then Beacon.** Print *Beacon reaches across the multiverse...* and dispatch **beacon** in the foreground (run_in_background: false) with the target path and the instruction to read `context.md` and cast the summon. Beacon owns the domain the standing eight cannot: it reads the map and either summons one bespoke specialist for this product's subject or stands down with empty hands. Both are correct outcomes.
+**Then Beacon.** Print *Beacon reaches across the multiverse...* and dispatch **beacon** in the foreground (run_in_background: false) with the target path and the instruction to read `context.md` and cast the summon. Beacon owns the domain the standing nine cannot: it reads the map and either summons one bespoke specialist for this product's subject or stands down with empty hands. Both are correct outcomes.
 
 When Beacon returns:
-- If **no gap**, say so in one plain line (*The Hall has who it needs.*) and go to Act 2 with the eight only.
+- If **no gap**, say so in one plain line (*The Hall has who it needs.*) and go to Act 2 with the nine only.
 - If **one summon**, print `ZAAP!`, Beacon's opener, and the summoned hero's codename, lane, and the one line only they can check. The brief is at `<target>/.reconcilers/summons/<slug>.md`; it joins the parallel wave in Act 2.
 - If **`SECOND SUMMON REQUESTED`**, do not launch either summon yet. Put Beacon's case to the analyst in ONE AskUserQuestion, in character and in Beacon's own words: name both heroes, the one line each covers that the other cannot, and the cost (one more agent, more tokens). Options: "One is enough" (default; Beacon picks the summon that covers the larger risk), "Call both", "Call neither". Honor the answer.
 
-### Act 2: The eight and the summon, in parallel
+### Act 2: The nine and the summon, in parallel
 
-Print *Meanwhile, in the Hall of Reconciliation...* and the dispatch calls: the eight, then Beacon's summon with the cry Beacon gave you. Launch all of them in ONE response, each with run_in_background: true.
+Print *Meanwhile, in the Hall of Reconciliation...* and the dispatch calls: the nine, then Beacon's summon with the cry Beacon gave you. Launch all of them in ONE response, each with run_in_background: true.
 
-The eight are ledger, doppel, median, chartjunk, thumb, greyscale, redline, payload, addressed the way you worked out above. The summon never has an agent file: dispatch it as a general-purpose agent (`subagent_type: "claude"`) whose prompt is the full brief Beacon wrote at `<target>/.reconcilers/summons/<slug>.md`, on the model Beacon assigned it (or `fable` if the roster is Flamethrower).
+The nine are ledger, doppel, median, chartjunk, thumb, greyscale, redline, payload, plumb, addressed the way you worked out above. The summon never has an agent file: dispatch it as a general-purpose agent (`subagent_type: "claude"`) whose prompt is the full brief Beacon wrote at `<target>/.reconcilers/summons/<slug>.md`, on the model Beacon assigned it (or `fable` if the roster is Flamethrower).
 
 Tell every one of them:
 - the target path and the product line
@@ -73,7 +73,7 @@ As each completion notification arrives, print its sound effect, the hero's name
 
 ### Act 3: The compiled report
 
-When all eight and the summon are in, write `<target>/.reconcilers/REPORT.md`:
+When all nine and the summon are in, write `<target>/.reconcilers/REPORT.md`:
 
 1. Every finding from every report, deduplicated. When two or more heroes hit the same thing from different lanes, keep one entry and record the corroboration count and the lanes.
 2. Ranked: Critical, then Major corroborated by two or more lanes, then Major single-lane, then a Minor batch. Within a tier, order by how many readers it affects.

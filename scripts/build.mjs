@@ -102,7 +102,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <rect x="64" y="278" width="540" height="6" rx="3" fill="url(#g)"/>
   <text x="64" y="346" font-family="${SANS}" font-size="30" fill="#a6acbb">They don&#8217;t save the world.</text>
   <text x="64" y="386" font-family="${SANS}" font-size="30" fill="#a6acbb">They check it.</text>
-  <text x="64" y="508" font-family="${SANS}" font-size="26" font-weight="700" fill="#f2f3f7">Ten heroes, one villain, your data product.</text>
+  <text x="64" y="508" font-family="${SANS}" font-size="26" font-weight="700" fill="#f2f3f7">Eleven heroes, one villain, your data product.</text>
   <text x="64" y="546" font-family="${SANS}" font-size="21" fill="#8a92a4">A Claude Code skill, with a Codex adapter.</text>
   ${tiles}
 </svg>`;
@@ -305,8 +305,8 @@ for (const f of ["index.html", "episode.html", "404.html", "app.css", "episode.c
   }
 }
 for (const p of zipFiles) if (readFileSync(p, "utf8").includes("—")) fail(`em dash in bundle/${relative(BUNDLE, p)}`);
-if (slideCount !== 11) fail(`carousel has ${slideCount} slides, expected 11`);
-if (agentCount !== 11) fail(`bundle has ${agentCount} agent briefs, expected 11`);
+if (slideCount !== 12) fail(`carousel has ${slideCount} slides, expected 12`);
+if (agentCount !== 12) fail(`bundle has ${agentCount} agent briefs, expected 12`);
 
 if (fails.length) { console.error("\nBUILD FAILED:\n  " + fails.join("\n  ")); process.exit(1); }
 console.log(`dist/ built · index + episode · ${slideCount} slides · reconcilers.zip ${zipFiles.length} files, ${zipKB} KB, sha256 ${zipSha.slice(0, 12)} (${agentCount} agents) · ${og} · episode ${balloons} balloons, every one verbatim`);
