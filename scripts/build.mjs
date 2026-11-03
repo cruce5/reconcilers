@@ -152,6 +152,18 @@ const heroPanel = (h) => `<figure class="panel hero">
       ${balloon(`${h.slug}.md`, h.balloon, h.name)}
       <figcaption class="cap">${esc(h.caught)}</figcaption>
     </figure>`;
+// the same hero as a wide panel: art left, words right. Used for the odd one out, so a two-column
+// grid never leaves a single panel stranded on its last row.
+const heroWide = (h) => `<figure class="panel hero wide">
+      <div class="art">${img(h.portrait, h.name)}${sfx(h.fx)}</div>
+      <div class="words">
+        ${cap(h.cry, " cry")}
+        ${balloon(`${h.slug}.md`, h.balloon, h.name)}
+        <figcaption class="cap">${esc(h.caught)}</figcaption>
+      </div>
+    </figure>`;
+const gridHeroes = ep.heroes.length % 2 ? ep.heroes.slice(0, -1) : ep.heroes;
+const oddHero = ep.heroes.length % 2 ? ep.heroes[ep.heroes.length - 1] : null;
 const stat = (c, cls = "") => `<div class="stat${cls}"><span class="burst" aria-hidden="true"></span><b>${esc(c.v)}</b><span>${esc(c.k)}</span></div>`;
 const cast = ["meld", "beacon", "ledger", "chartjunk", "thumb", "doctor_missedit"];
 
@@ -183,7 +195,7 @@ const episode = `<!doctype html>
     <div class="cover-top"><span class="issue">${esc(ep.issue)}</span><span class="brand">The Reconcilers</span><span class="price">${esc(ep.date)}</span></div>
     <h1 class="cover-title">${esc(ep.title)}</h1>
     <div class="cover-cast" aria-hidden="true">${cast.map((c) => `<img src="/portraits/${c}.jpg" width="720" height="720" alt="" decoding="async">`).join("")}</div>
-    <p class="cover-tag">Eleven heroes. One box office site. And a villain who audits the auditors!</p>
+    <p class="cover-tag">Twelve heroes. One box office site. And a villain who audits the auditors!</p>
   </header>
   <p class="indicia">${esc(ep.indicia)}</p>
 
@@ -210,8 +222,9 @@ const episode = `<!doctype html>
   <section class="page" aria-label="The team">
     <div class="panel narration">${cap("Meanwhile, in the Hall of Reconciliation...", " big")}${cap(ep.hall)}</div>
     <div class="grid">
-    ${ep.heroes.map(heroPanel).join("\n    ")}
+    ${gridHeroes.map(heroPanel).join("\n    ")}
     </div>
+    ${oddHero ? heroWide(oddHero) : ""}
     <figure class="panel hero wide">
       <div class="art">${img(ep.summon.portrait, ep.summon.name)}${sfx(ep.summon.fx, " violet")}</div>
       <div class="words">

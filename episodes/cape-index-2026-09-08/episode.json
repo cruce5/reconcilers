@@ -14,7 +14,7 @@
     },
     "caption": "Meld goes in first, reads the whole project, and draws a map, so nobody else wastes time guessing how it works."
   },
-  "hall": "Then nine heroes go in at once, the summoned specialist among them. Each has one job, and nobody compares notes until the end.",
+  "hall": "Then ten heroes go in at once, the summoned specialist among them. Each has one job, and nobody compares notes until the end.",
   "heroes": [
     {
       "slug": "ledger",
@@ -107,6 +107,18 @@
         "q": "Most of what I would flag on a normal site is not here to flag."
       },
       "caught": "Checked the plumbing: speed, security, how the site gets served. Nothing serious. A few redirects were taking the long way round."
+    },
+    {
+      "slug": "plumb",
+      "name": "Plumb",
+      "cry": "PLUMB, drop the line!",
+      "fx": "BAM!",
+      "portrait": "plumb.jpg",
+      "balloon": {
+        "q": "it settled toward Wakanda, Atlantis and every film with a woman's name on the poster.",
+        "pre": "…"
+      },
+      "caught": "Ran the site's own roster rules on matched characters. Wong and every Eternal made the cut; Okoye, M'Baku, Mera and Heimdall, who fight just as hard, did not. And the chart that called IMDb raters \"the audience\" scored all nine women-led films below what their reviews predicted."
     }
   ],
   "report": {
@@ -181,5 +193,5 @@
     "caught": "Films that opened on a Wednesday looked like they had the best staying power, only because their first days were left out of their \"opening weekend\". And budgets from studio filings were being ranked against smaller press estimates.",
     "portrait": "turnstile.jpg"
   },
-  "credits": "All but one finding was fixed the same day."
+  "credits": "Most findings were fixed the same day."
 }
