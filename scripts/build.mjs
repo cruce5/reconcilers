@@ -272,7 +272,7 @@ write(join(DIST, "episode.html"), fill(episode));
 const today = new Date().toISOString().slice(0, 10);
 write(join(DIST, "_headers"), [
   "/*",
-  "  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+  "  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
   "  Referrer-Policy: strict-origin-when-cross-origin",
   "  X-Content-Type-Options: nosniff",
   "  Strict-Transport-Security: max-age=31536000",
