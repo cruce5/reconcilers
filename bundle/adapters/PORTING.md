@@ -31,7 +31,7 @@ The team is defined by one skill (the episode) and twelve briefs (one per hero, 
 
 ## Two runtimes we ship
 
-- **Claude Code** (the default): `SKILL.md` (the episode) + `agents/*.md` (one file per hero, with model frontmatter). Installed to `.claude/skills/reconcilers/` and `.claude/agents/`. Eleven agents run in parallel from one dispatcher.
+- **Claude Code** (the default): `SKILL.md` (the episode) + `agents/*.md` (one file per hero, with model frontmatter). Installed to `.claude/skills/reconcilers/` and `.claude/agents/`. Meld and Beacon go first, then the nine and Beacon's summon run in parallel from one dispatcher, then the Doctor.
 - **Codex and anything else that reads `AGENTS.md`**: `adapters/codex/EPISODE.md`, dropped at the repo root as `reconcilers-episode.md`, with `adapters/codex/AGENTS.snippet.md` appended to `AGENTS.md` to point at it. Keep that split. `AGENTS.md` is startup context for Codex and for Claude Code (2.1.277 and later) wherever there is no `CLAUDE.md`, so a whole episode parked in it is a tax on every unrelated session. One agent runs the lanes and Beacon's summon sequentially. Same briefs, same rules, same output.
 
 ## Adding a runtime

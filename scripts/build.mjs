@@ -57,7 +57,15 @@ const zipFiles = walk(BUNDLE), locals = [], centrals = [];
 let offset = 0;
 for (const p of zipFiles) {
   const name = Buffer.from("reconcilers/" + relative(BUNDLE, p).split(sep).join("/"), "utf8");
-  const data = readFileSync(p), comp = deflateRawSync(data, { level: 9 }), crc = crc32(data);
+  // Ship the bytes git stores, not this checkout's. A Windows checkout (core.autocrlf) turns every
+  // LF into CRLF, and a CRLF install.sh fails on macOS and Linux bash at its first "set" line. It
+  // also broke the hash promise below: a rebuild on a Mac produced a different zip. Text files are
+  // normalized to LF here, so the zip is the same on every OS and the installer runs everywhere.
+  const raw = readFileSync(p);
+  const text = /\.(md|sh|ps1|json|txt)$/i.test(p);
+  const data = text ? Buffer.from(raw.toString("utf8").replace(/\r\n/g, "\n"), "utf8") : raw;
+  if (text && data.includes(13)) throw new Error(`${p}: a carriage return survived normalization`);
+  const comp = deflateRawSync(data, { level: 9 }), crc = crc32(data);
   const head = Buffer.alloc(30);
   head.writeUInt32LE(0x04034b50, 0); head.writeUInt16LE(20, 4); head.writeUInt16LE(0x0800, 6); head.writeUInt16LE(8, 8);
   head.writeUInt16LE(dosTime, 10); head.writeUInt16LE(dosDate, 12); head.writeUInt32LE(crc, 14);
